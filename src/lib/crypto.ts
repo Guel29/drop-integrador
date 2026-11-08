@@ -1,0 +1,6 @@
+import { createCipheriv, createDecipheriv, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
+function key() { const k = Buffer.from(process.env.TOKEN_ENCRYPTION_KEY ?? '', 'base64'); if (k.length !== 32) throw new Error('TOKEN_ENCRYPTION_KEY must be 32 bytes'); return k; }
+export function encrypt(value: unknown) { const iv = randomBytes(12); const cipher = createCipheriv('aes-256-gcm', key(), iv); const data = Buffer.concat([cipher.update(JSON.stringify(value)), cipher.final()]); return [iv, cipher.getAuthTag(), data].map(b => b.toString('base64url')).join('.'); }
+export function decrypt<T>(value: string): T { const [iv, tag, data] = value.split('.').map(v => Buffer.from(v, 'base64url')); const cipher = createDecipheriv('aes-256-gcm', key(), iv); cipher.setAuthTag(tag); return JSON.parse(Buffer.concat([cipher.update(data), cipher.final()]).toString()); }
+export function hashPassword(password: string) { const salt = randomBytes(16).toString('hex'); return `scrypt:${salt}:${scryptSync(password, salt, 64).toString('hex')}`; }
+export function verifyPassword(password: string, encoded: string) { const [kind, salt, hash] = encoded.split(':'); if (kind !== 'scrypt' || !salt || !hash || hash.length !== 128) return false; const candidate = scryptSync(password, salt, 64); return timingSafeEqual(candidate, Buffer.from(hash, 'hex')); }

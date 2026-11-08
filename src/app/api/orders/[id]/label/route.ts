@@ -1,0 +1,5 @@
+import { requireAdmin, audit } from '@/lib/auth';
+import { db } from '@/lib/db';
+import { apiError } from '@/lib/http';
+import { shipmentLabel } from '@/lib/mercado-livre/client';
+export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) { try { const actor = await requireAdmin(); const { id } = await context.params; const order = await db.order.findUniqueOrThrow({ where: { id } }); if (!order.shipmentId || !order.paymentConfirmed || !order.logisticsValidated || !order.fiscalValidated) return Response.json({ error: 'Envio não elegível. Valide pagamento, logística e documentação fiscal.' }, { status: 409 }); const account = await db.mercadoAccount.findFirstOrThrow(); const pdf = await shipmentLabel(account.id, order.shipmentId); await audit(actor, 'shipment.label_download', id, 'success'); return new Response(pdf, { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename="etiqueta.pdf"', 'Cache-Control': 'no-store' } }); } catch (error) { return apiError(error); } }

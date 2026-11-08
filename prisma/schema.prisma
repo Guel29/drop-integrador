@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "client"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+model Product {
+  id String @id @default(cuid())
+  sku String @unique
+  supplierSku String @unique
+  title String
+  gtin String?
+  image String?
+  cost Int
+  stock Int
+  active Boolean @default(true)
+  updatedAt DateTime @updatedAt
+  listings Listing[]
+  lines OrderLine[]
+}
+model Listing {
+  id String @id @default(cuid())
+  externalId String @unique
+  productId String
+  product Product @relation(fields: [productId], references: [id])
+  price Int
+  status String
+  logistics String?
+  updatedAt DateTime @updatedAt
+}
+model Order {
+  id String @id @default(cuid())
+  externalId String @unique
+  status String @default("pending")
+  paymentConfirmed Boolean @default(false)
+  manualApprovedAt DateTime?
+  logisticsValidated Boolean @default(false)
+  fiscalValidated Boolean @default(false)
+  supplierOrderId String? @unique
+  dispatchKey String? @unique
+  total Int
+  shipping Int @default(0)
+  fees Int @default(0)
+  tax Int @default(0)
+  shipmentId String?
+  tracking String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lines OrderLine[]
+  events OrderEvent[]
+}
+model OrderLine {
+  id String @id @default(cuid())
+  orderId String
+  order Order @relation(fields: [orderId], references: [id])
+  productId String
+  product Product @relation(fields: [productId], references: [id])
+  quantity Int
+  unitCost Int
+}
+model OrderEvent {
+  id String @id @default(cuid())
+  orderId String
+  order Order @relation(fields: [orderId], references: [id])
+  status String
+  createdAt DateTime @default(now())
+}
+model MercadoAccount {
+  id String @id
+  encryptedTokens String
+  expiresAt DateTime
+  version Int @default(0)
+  updatedAt DateTime @updatedAt
+}
+model WebhookEvent {
+  id String @id
+  topic String
+  resource String
+  userId String
+  status String @default("pending")
+  attempts Int @default(0)
+  lastError String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([status, createdAt])
+}
+model AuditLog {
+  id String @id @default(cuid())
+  actor String
+  action String
+  entityId String?
+  outcome String
+  createdAt DateTime @default(now())
+}
+model PricingRule {
+  id String @id @default("default")
+  feeBps Int @default(1600)
+  taxBps Int @default(600)
+  marginBps Int @default(2000)
+  fixedFee Int @default(0)
+  shipping Int @default(0)
+  updatedAt DateTime @updatedAt
+}

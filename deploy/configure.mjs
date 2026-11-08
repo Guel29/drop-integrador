@@ -1,0 +1,14 @@
+import { writeFileSync } from 'node:fs';
+import { randomBytes, scryptSync } from 'node:crypto';
+const domain = process.env.HOST_DOMAIN?.trim();
+const email = process.env.ADMIN_EMAIL?.trim();
+const password = process.env.ADMIN_PASSWORD;
+if (!domain || !/^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(domain)) throw new Error('Informe um domínio DNS válido, sem https, porta ou caminho.');
+if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('E-mail inválido.');
+if (!password || password.length < 6) throw new Error('Use uma senha com pelo menos 6 caracteres.');
+const salt = randomBytes(16).toString('hex');
+const hash = `scrypt:${salt}:${scryptSync(password,salt,64).toString('hex')}`;
+const dbPassword = randomBytes(32).toString('base64url');
+const lines = { HOST_DOMAIN: domain.toLowerCase(), APP_URL: `https://${domain.toLowerCase()}`, APP_MODE: 'simulation', DB_PASSWORD: dbPassword, DATABASE_URL: `postgresql://smartdrop:${dbPassword}@postgres:5432/smartdrop`, REDIS_URL: 'redis://redis:6379', TOKEN_ENCRYPTION_KEY: randomBytes(32).toString('base64'), SESSION_SECRET: randomBytes(48).toString('base64url'), ADMIN_EMAIL: email, ADMIN_PASSWORD_HASH: hash, MELI_CLIENT_ID: '', MELI_CLIENT_SECRET: '', MELI_REDIRECT_URI: `https://${domain.toLowerCase()}/api/mercado-livre/callback`, MELI_USER_IDS: '' };
+writeFileSync('deploy/.env.production', Object.entries(lines).map(([k,v]) => `${k}=${v}`).join('\n')+'\n', { flag: 'wx', mode: 0o600 });
+console.log('Configuração criada com chaves próprias. Nenhuma senha ou chave foi exibida.');

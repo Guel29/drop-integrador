@@ -1,0 +1,11 @@
+import 'dotenv/config';
+import { test, after } from 'node:test';
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { db } from '../src/lib/db';
+import { simulateDispatch } from '../src/lib/orders';
+import { importOrder } from '../src/lib/mercado-livre/import-order';
+const ids: string[] = [];
+after(async () => { for (const id of ids) { await db.orderLine.deleteMany({ where: { orderId: id } }); await db.orderEvent.deleteMany({ where: { orderId: id } }); await db.auditLog.deleteMany({ where: { entityId: id } }); await db.order.delete({ where: { id } }); } await db.$disconnect(); });
+test('PostgreSQL serializes concurrent supplier dispatch and writes one event', async () => { const product = await db.product.findUniqueOrThrow({ where: { sku: 'MDB-001' } }); const order = await db.order.create({ data: { externalId: `test-${randomUUID()}`, total: 15990, paymentConfirmed: true, manualApprovedAt: new Date(), logisticsValidated: true, fiscalValidated: true, lines: { create: { productId: product.id, quantity: 1, unitCost: product.cost } } } }); ids.push(order.id); const [a,b] = await Promise.all([simulateDispatch(order.id, 'test'), simulateDispatch(order.id, 'test')]); assert.equal(a.id,b.id); assert.equal(await db.orderEvent.count({ where: { orderId: order.id, status: 'simulated' } }), 1); assert.equal(await db.auditLog.count({ where: { entityId: order.id, action: 'order.simulate' } }), 1); });
+test('authoritative import is idempotent; unmapped products remain blocked', async () => { const remote = { id: Date.now(), seller: { id: 42 }, status: 'paid', total_amount: 129.9, date_created: new Date().toISOString(), payments: [{ status: 'approved' }], order_items: [{ item: { id: 'MLB99999999' }, quantity: 1 }] }; const a = await importOrder(remote, '42'); ids.push(a.id); const b = await importOrder(remote, '42'); assert.equal(a.id,b.id); assert.equal(a.status,'unmapped'); assert.equal(a.paymentConfirmed,true); await assert.rejects(simulateDispatch(a.id,'test'), /não elegível/); await assert.rejects(importOrder(remote,'99'), /OWNER/); });
