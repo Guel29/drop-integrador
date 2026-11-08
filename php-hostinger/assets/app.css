@@ -172,6 +172,9 @@
   .fixed {
     position: fixed;
   }
+  .relative {
+    position: relative;
+  }
   .static {
     position: static;
   }
@@ -218,7 +221,7 @@
   --green: #147f6d;
   --line: #e8ede9;
   --bg: #f6f8f7;
-  --sidebar: 244px;
+  --sidebar: 270px;
 }
 * {
   box-sizing: border-box;
@@ -228,7 +231,7 @@ body {
   font-family: Arial,Helvetica,sans-serif;
   color: var(--ink);
   background: var(--bg);
-  font-size: 13px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 button,input,select {
@@ -302,7 +305,7 @@ button:hover {
 }
 .brand small {
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 3.6px;
   margin: 2px 0 0 2px;
   color: #82938b;
@@ -328,7 +331,7 @@ button:hover {
   border-radius: 7px;
   background: #f0f5f1;
   color: #55826c;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 700;
 }
 .store-switch>span:nth-child(2) {
@@ -338,11 +341,11 @@ button:hover {
   display: block;
 }
 .store-switch strong {
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 600;
 }
 .store-switch small {
-  font-size: 9px;
+  font-size: 13px;
   color: var(--muted);
   margin-top: 4px;
 }
@@ -359,7 +362,7 @@ button:hover {
   border-radius: 7px;
   color: #77837d;
   text-align: left;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 500;
 }
 .nav-item:hover {
@@ -380,7 +383,7 @@ button:hover {
   border-radius: 0 3px 3px 0;
 }
 .nav-item b {
-  font-size: 9px;
+  font-size: 13px;
   background: #eff3f0;
   padding: 3px 6px;
   border-radius: 4px;
@@ -389,7 +392,7 @@ button:hover {
   color: #7b8981;
 }
 .nav-group {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.8px;
   color: #a1aaa4;
@@ -413,11 +416,11 @@ button:hover {
   margin-bottom: 10px;
 }
 .help-card strong {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
 }
 .help-card p {
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.65;
   color: #89958c;
   margin: 7px 0 12px;
@@ -426,7 +429,7 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 30px;
-  font-size: 10px;
+  font-size: 14px;
   color: #4f7a61;
 }
 .sidebar-footer {
@@ -446,7 +449,7 @@ button:hover {
   background: #eee9e1;
   color: #7e705a;
   border-radius: 50%;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 600;
   border: 2px solid #fff;
   box-shadow: 0 0 0 1px #e7e9e4;
@@ -454,17 +457,17 @@ button:hover {
 .avatar.small {
   width: 31px;
   height: 31px;
-  font-size: 10px;
+  font-size: 14px;
 }
 .sidebar-footer strong {
   display: block;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
 }
 .sidebar-footer small {
   display: block;
   color: #9aa39c;
-  font-size: 8px;
+  font-size: 12px;
   margin-top: 4px;
 }
 .sidebar-footer button {
@@ -488,7 +491,7 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 10px;
+  font-size: 14px;
   color: #98a19c;
 }
 .breadcrumb strong {
@@ -514,7 +517,7 @@ button:hover {
   border: 1px solid #f3ead5;
   padding: 6px 9px;
   border-radius: 5px;
-  font-size: 9px;
+  font-size: 13px;
 }
 .mode-pill>span {
   height: 5px;
@@ -556,14 +559,14 @@ main {
   margin-bottom: 25px;
 }
 .eyebrow {
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 1.65px;
   font-weight: 600;
   color: #98a59b;
   margin-bottom: 9px;
 }
 h1 {
-  font-size: 27px;
+  font-size: 30px;
   letter-spacing: -.9px;
   font-weight: 600;
   line-height: 1.3;
@@ -572,7 +575,7 @@ h1 {
   color: #1a8b70;
 }
 .page-heading p {
-  font-size: 11px;
+  font-size: 15px;
   color: #8c9890;
   margin-top: 9px;
 }
@@ -591,7 +594,7 @@ h1 {
   border: 1px solid #e0e6e0;
   border-radius: 6px;
   color: #617267;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
   min-height: 35px;
@@ -612,7 +615,7 @@ h1 {
 .button.compact {
   padding: 8px 10px;
   min-height: 31px;
-  font-size: 9px;
+  font-size: 13px;
 }
 .simulation-banner {
   display: flex;
@@ -637,20 +640,20 @@ h1 {
 }
 .simulation-banner strong {
   font-weight: 600;
-  font-size: 10px;
+  font-size: 14px;
   display: block;
   color: #5e7951;
   margin-bottom: 5px;
 }
 .simulation-banner span {
   color: #8a9780;
-  font-size: 9px;
+  font-size: 13px;
 }
 .simulation-banner button {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 9px;
+  font-size: 13px;
   color: #6d855a;
   margin-left: auto;
   white-space: nowrap;
@@ -662,7 +665,7 @@ h1 {
   margin-bottom: 15px;
 }
 h2 {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -.12px;
   display: flex;
@@ -670,7 +673,7 @@ h2 {
   gap: 9px;
 }
 .subtle-badge {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
   color: #9ba69e;
   background: #eef2ed;
@@ -688,7 +691,7 @@ h2 {
   padding: 7px 9px;
   border-radius: 6px;
   color: #849287;
-  font-size: 9px;
+  font-size: 13px;
 }
 .period-select select {
   appearance: none;
@@ -717,7 +720,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   color: #859187;
-  font-size: 10px;
+  font-size: 14px;
   gap: 8px;
 }
 .metric-icon {
@@ -752,7 +755,7 @@ h2 {
   background: #f3f0f8;
 }
 .metric-value {
-  font-size: 28px;
+  font-size: 32px;
   letter-spacing: -1px;
   font-weight: 550;
   margin: 12px 0 16px;
@@ -771,7 +774,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: 12px;
   color: #9ba69d;
   white-space: nowrap;
 }
@@ -780,7 +783,7 @@ h2 {
   align-items: center;
   gap: 3px;
   color: #5b9676;
-  font-size: 8px;
+  font-size: 12px;
   background: #f0f7f1;
   padding: 3px 5px;
   border-radius: 4px;
@@ -791,7 +794,7 @@ h2 {
   gap: 4px;
   color: #b18d50;
   margin-left: auto;
-  font-size: 8px;
+  font-size: 12px;
 }
 .analytics-grid {
   display: grid;
@@ -814,7 +817,7 @@ h2 {
   padding: 20px 20px 0;
 }
 .panel-title p {
-  font-size: 9px;
+  font-size: 13px;
   color: #9ca69f;
   margin-top: 7px;
   line-height: 1.6;
@@ -826,7 +829,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 8px;
+  font-size: 12px;
   color: #819086;
   white-space: nowrap;
 }
@@ -856,7 +859,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 12px;
   color: #a2aaa4;
   min-width: 40px;
   padding-bottom: 29px;
@@ -886,7 +889,7 @@ h2 {
 .chart-x {
   display: flex;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 12px;
   color: #a2aaa4;
   padding-top: 13px;
 }
@@ -896,7 +899,7 @@ h2 {
   border-top: 1px solid #f0f2ef;
   margin: 17px 20px 0;
   padding: 12px 0;
-  font-size: 8px;
+  font-size: 12px;
   color: #a6afa6;
 }
 .chart-footer>span:first-child {
@@ -921,13 +924,13 @@ h2 {
 }
 .connection strong {
   display: block;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
 }
 .connection small {
   display: block;
   color: #a3aba4;
-  font-size: 8px;
+  font-size: 12px;
   margin-top: 5px;
 }
 .market-logo {
@@ -962,7 +965,7 @@ h2 {
 }
 .connection .status {
   margin-left: auto;
-  font-size: 7px;
+  font-size: 12px;
   padding: 4px 6px;
 }
 .status {
@@ -972,7 +975,7 @@ h2 {
   gap: 5px;
   border-radius: 4px;
   padding: 5px 7px;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   line-height: 1;
@@ -995,7 +998,7 @@ h2 {
   padding-bottom: 15px;
   border-bottom: 1px solid #f0f2ee;
   color: #a3ada3;
-  font-size: 8px;
+  font-size: 12px;
 }
 .connection+.connection-meta+.connection {
   margin-top: 16px;
@@ -1004,7 +1007,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: 12px;
   color: #7e967e;
   background: #f6f9f3;
   border-radius: 5px;
@@ -1016,20 +1019,20 @@ h2 {
   align-items: center;
   gap: 7px;
   color: #5e8c77;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 500;
 }
 .manage-connections {
   width: 100%;
   justify-content: center;
   margin: 14px 0 16px;
-  font-size: 9px;
+  font-size: 13px;
 }
 .count-badge {
   background: #f0f3ef;
   color: #8d9a8f;
   border: 1px solid #e6ebe3;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   border-radius: 4px;
   padding: 3px 6px;
@@ -1054,7 +1057,7 @@ h2 {
   position: relative;
   padding: 12px 0 15px;
   white-space: nowrap;
-  font-size: 9px;
+  font-size: 13px;
   color: #96a196;
   display: flex;
   align-items: center;
@@ -1076,7 +1079,7 @@ h2 {
 }
 .tabs button>span {
   padding: 2px 5px;
-  font-size: 7px;
+  font-size: 12px;
   background: #f5f0e4;
   color: #b19863;
   border-radius: 3px;
@@ -1101,7 +1104,7 @@ h2 {
   border: 0;
   outline: none;
   width: 120px;
-  font-size: 9px;
+  font-size: 13px;
   color: #65766b;
   background: transparent;
 }
@@ -1121,7 +1124,7 @@ thead {
   background: #fafbf9;
 }
 th {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   color: #929e92;
   padding: 12px 15px;
@@ -1135,7 +1138,7 @@ th svg {
 td {
   border-bottom: 1px solid #f0f2ed;
   padding: 11px 15px;
-  font-size: 9px;
+  font-size: 13px;
   color: #788579;
 }
 td:first-child,th:first-child {
@@ -1162,7 +1165,7 @@ input[type=checkbox]:checked {
 }
 input[type=checkbox]:checked:after {
   content: '✓';
-  font-size: 8px;
+  font-size: 12px;
   color: white;
 }
 .product-cell {
@@ -1181,14 +1184,14 @@ input[type=checkbox]:checked:after {
 }
 .product-cell strong {
   display: block;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 500;
   color: #55665a;
 }
 .product-cell small {
   display: block;
   margin-top: 6px;
-  font-size: 8px;
+  font-size: 12px;
   color: #abb3a8;
 }
 .table-money {
@@ -1209,7 +1212,7 @@ input[type=checkbox]:checked:after {
   justify-content: space-between;
   padding: 12px 20px;
   color: #a3aca0;
-  font-size: 8px;
+  font-size: 12px;
 }
 .table-footer>div {
   display: flex;
@@ -1223,7 +1226,7 @@ input[type=checkbox]:checked:after {
   border: 1px solid #edf0e8;
   border-radius: 4px;
   color: #98a391;
-  font-size: 8px;
+  font-size: 12px;
 }
 .pagination.current {
   border-color: #cddfcf;
@@ -1236,7 +1239,7 @@ input[type=checkbox]:checked:after {
   justify-content: space-between;
   padding: 21px 0;
   color: #a6afa3;
-  font-size: 8px;
+  font-size: 12px;
   gap: 15px;
 }
 .page-footer>span {
@@ -1264,7 +1267,7 @@ input[type=checkbox]:checked:after {
   border: 1px solid #2b5b49;
   box-shadow: 0 7px 25px #173f3333;
   border-radius: 9px;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
 }
 .toast button {
@@ -1314,7 +1317,7 @@ input[type=checkbox]:checked:after {
 }
 .modal>p {
   color: #8b9989;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -1328,7 +1331,7 @@ input[type=checkbox]:checked:after {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 11px;
+  font-size: 15px;
   color: #6c7d6b;
 }
 .modal input:not([type=checkbox]),.modal select,.pricing-fields input,.login-form input {
@@ -1352,7 +1355,7 @@ input[type=checkbox]:checked:after {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 11px;
+  font-size: 15px;
   color: #6c7d6b;
 }
 .notice {
@@ -1361,7 +1364,7 @@ input[type=checkbox]:checked:after {
   color: #919873;
   border: 1px solid #e9eddd;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.7;
   margin: 15px 0;
 }
@@ -1369,7 +1372,7 @@ input[type=checkbox]:checked:after {
   flex-direction: row;
   align-items: flex-start;
   line-height: 1.7;
-  font-size: 11px;
+  font-size: 15px;
   gap: 9px;
 }
 .check-label input {
@@ -1389,17 +1392,17 @@ input[type=checkbox]:checked:after {
   border-radius: 7px;
 }
 .order-modal-product strong {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
 }
 .order-modal-product p {
-  font-size: 10px;
+  font-size: 14px;
   color: #99a393;
   margin-top: 7px;
 }
 .order-modal-product>.status {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 12px;
 }
 .order-flow {
   display: flex;
@@ -1412,7 +1415,7 @@ input[type=checkbox]:checked:after {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: 8px;
+  font-size: 12px;
   color: #a4ad9e;
   text-align: center;
   flex: 1;
@@ -1428,7 +1431,7 @@ input[type=checkbox]:checked:after {
   background: #f0f3ec;
   border: 1px solid #e8ece3;
   border-radius: 50%;
-  font-size: 9px;
+  font-size: 13px;
 }
 .order-flow>div:after {
   content: '';
@@ -1456,7 +1459,7 @@ input[type=checkbox]:checked:after {
   gap: 12px;
   padding: 12px 0;
   color: #71a184;
-  font-size: 11px;
+  font-size: 15px;
 }
 .order-checks>span {
   display: flex;
@@ -1464,7 +1467,7 @@ input[type=checkbox]:checked:after {
   gap: 8px;
 }
 .form-note {
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.8;
   color: #96a08f;
   padding: 16px 0;
@@ -1490,17 +1493,17 @@ input[type=checkbox]:checked:after {
   color: #c6a26b;
 }
 .notification-item strong {
-  font-size: 12px;
+  font-size: 16px;
 }
 .notification-item p {
-  font-size: 11px;
+  font-size: 15px;
   color: #93a08d;
   line-height: 1.8;
   margin: 7px 0 10px;
 }
 .modal>small {
   color: #9aa593;
-  font-size: 10px;
+  font-size: 14px;
 }
 .help-steps>div {
   display: flex;
@@ -1516,14 +1519,14 @@ input[type=checkbox]:checked:after {
   min-width: 30px;
   height: 30px;
   border-radius: 7px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .help-steps strong {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
 }
 .help-steps p {
-  font-size: 11px;
+  font-size: 15px;
   line-height: 1.8;
   color: #95a08e;
   margin-top: 6px;
@@ -1568,24 +1571,24 @@ input[type=checkbox]:checked:after {
   background: white;
 }
 .product-card>small {
-  font-size: 9px;
+  font-size: 13px;
   color: #9ca891;
 }
 .product-card h3 {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   margin: 9px 0 17px;
 }
 .product-prices {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: 13px;
   color: #a5ac9b;
   padding-bottom: 17px;
 }
 .product-prices strong {
   display: block;
-  font-size: 13px;
+  font-size: 16px;
   color: #61775c;
   font-weight: 500;
   margin-top: 6px;
@@ -1601,7 +1604,7 @@ input[type=checkbox]:checked:after {
   background: #f3f8ee;
   margin: 0 20px 20px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 15px;
 }
 .pricing-grid {
   display: grid;
@@ -1640,7 +1643,7 @@ input[type=checkbox]:checked:after {
   justify-content: space-between;
   padding: 13px 0;
   border-top: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 15px;
   color: #8d9a83;
 }
 .price-result dd {
@@ -1652,7 +1655,7 @@ input[type=checkbox]:checked:after {
   color: #43834e;
 }
 .price-result .profit dd {
-  font-size: 16px;
+  font-size: 18px;
 }
 .price-result>.button {
   width: 100%;
@@ -1676,7 +1679,7 @@ input[type=checkbox]:checked:after {
   position: absolute;
   top: 35px;
   right: 30px;
-  font-size: 9px;
+  font-size: 13px;
 }
 .integration-card h2 {
   margin: 24px 0 15px;
@@ -1686,7 +1689,7 @@ input[type=checkbox]:checked:after {
 .integration-card p {
   color: #8e9b86;
   line-height: 1.8;
-  font-size: 12px;
+  font-size: 16px;
 }
 .integration-card ul {
   list-style: none;
@@ -1701,7 +1704,7 @@ input[type=checkbox]:checked:after {
   align-items: center;
   gap: 9px;
   color: #7f9371;
-  font-size: 11px;
+  font-size: 15px;
 }
 .integration-card>.button {
   width: 100%;
@@ -1710,7 +1713,7 @@ input[type=checkbox]:checked:after {
 .integration-card>small {
   display: block;
   color: #a6ae9a;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.8;
   margin-top: 12px;
 }
@@ -1722,7 +1725,7 @@ input[type=checkbox]:checked:after {
   justify-content: space-between;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 16px;
   color: #929e87;
 }
 .finance-lines>div:last-child {
@@ -1740,7 +1743,7 @@ input[type=checkbox]:checked:after {
   margin: 0 24px;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 14px;
   color: #9eaa91;
 }
 .audit-row:first-of-type {
@@ -1760,11 +1763,11 @@ input[type=checkbox]:checked:after {
   display: block;
   color: #64795a;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
 }
 .audit-row small {
   display: block;
-  font-size: 9px;
+  font-size: 13px;
   margin-top: 6px;
 }
 .audit-row>span:nth-last-child(2) {
@@ -1780,7 +1783,7 @@ input[type=checkbox]:checked:after {
   padding: 22px 0;
   margin: 0 25px;
   border-top: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 15px;
   color: #94a088;
 }
 .setting-row strong {
@@ -1805,12 +1808,12 @@ input[type=checkbox]:checked:after {
   color: #9bb292;
 }
 .empty-state h3 {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
   color: #6e8360;
 }
 .empty-state p {
-  font-size: 11px;
+  font-size: 15px;
 }
 .login-page {
   padding: 0;
@@ -1852,7 +1855,7 @@ input[type=checkbox]:checked:after {
   color: #9bc1a3;
 }
 .login-art>p {
-  font-size: 14px;
+  font-size: 16px;
   color: #9db5a5;
   max-width: 300px;
   line-height: 1.8;
@@ -1894,7 +1897,7 @@ input[type=checkbox]:checked:after {
 }
 .login-form>p {
   color: #9aa58e;
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 30px;
 }
 .login-form form {
@@ -1903,14 +1906,14 @@ input[type=checkbox]:checked:after {
   gap: 22px;
 }
 .login-form .button {
-  font-size: 12px;
+  font-size: 16px;
   padding: 13px;
   justify-content: space-between;
 }
 .login-form small {
   display: block;
   color: #b2b8a9;
-  font-size: 10px;
+  font-size: 14px;
   text-align: center;
   margin-top: 35px;
 }
@@ -1918,7 +1921,7 @@ input[type=checkbox]:checked:after {
   display: block;
   text-align: center;
   color: #739367;
-  font-size: 11px;
+  font-size: 15px;
   margin-top: 25px;
 }
 .spin {
@@ -1931,23 +1934,23 @@ input[type=checkbox]:checked:after {
 }
 @media (min-width:1500px) {
   :root {
-    --sidebar: 260px;
+    --sidebar: 280px;
   }
   body {
-    font-size: 14px;
+    font-size: 16px;
   }
   .nav-item {
-    font-size: 12px;
+    font-size: 16px;
     padding: 14px 13px;
   }
   .metric-value {
     font-size: 32px;
   }
   .metric-top {
-    font-size: 11px;
+    font-size: 15px;
   }
   .metric-bottom {
-    font-size: 9px;
+    font-size: 13px;
   }
   .sales-chart {
     height: 224px;
@@ -1966,10 +1969,10 @@ input[type=checkbox]:checked:after {
   }
   td {
     padding: 15px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .product-cell strong {
-    font-size: 10px;
+    font-size: 14px;
   }
   .product-cell img {
     height: 40px;
@@ -1979,24 +1982,24 @@ input[type=checkbox]:checked:after {
     width: 150px;
   }
   .status {
-    font-size: 9px;
+    font-size: 13px;
   }
   .tabs button {
-    font-size: 10px;
+    font-size: 14px;
   }
   .panel-title p {
-    font-size: 10px;
+    font-size: 14px;
   }
   .simulation-banner strong {
-    font-size: 11px;
+    font-size: 15px;
   }
   .simulation-banner span {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 @media (max-width:1200px) {
   :root {
-    --sidebar: 218px;
+    --sidebar: 250px;
   }
   .sidebar {
     padding-left: 12px;
@@ -2017,7 +2020,7 @@ input[type=checkbox]:checked:after {
     align-items: flex-start;
   }
   h1 {
-    font-size: 24px;
+    font-size: 26px;
   }
   .metrics {
     gap: 10px;
@@ -2026,17 +2029,17 @@ input[type=checkbox]:checked:after {
     padding: 14px 12px;
   }
   .metric-value {
-    font-size: 24px;
+    font-size: 26px;
   }
   .metric-top {
-    font-size: 9px;
+    font-size: 13px;
   }
   .metric-bottom {
-    font-size: 7px;
+    font-size: 12px;
     gap: 3px;
   }
   .metric-bottom button {
-    font-size: 7px;
+    font-size: 12px;
   }
   .analytics-grid {
     grid-template-columns: minmax(0,1fr) 265px;
@@ -2046,7 +2049,7 @@ input[type=checkbox]:checked:after {
     padding: 17px 16px 0;
   }
   .chart-legend {
-    font-size: 7px;
+    font-size: 12px;
   }
   .chart-legend>span {
     margin-left: 4px;
@@ -2078,7 +2081,7 @@ input[type=checkbox]:checked:after {
   }
   .integration-card>.status {
     right: 22px;
-    font-size: 8px;
+    font-size: 12px;
   }
   .connection {
     gap: 7px;
@@ -2086,10 +2089,10 @@ input[type=checkbox]:checked:after {
     margin-right: 13px;
   }
   .connection strong {
-    font-size: 9px;
+    font-size: 13px;
   }
   .connection-health {
-    font-size: 7px;
+    font-size: 12px;
     margin-left: 13px;
     margin-right: 13px;
   }
@@ -2097,10 +2100,10 @@ input[type=checkbox]:checked:after {
     gap: 6px;
   }
   .sidebar-footer small {
-    font-size: 7px;
+    font-size: 12px;
   }
   .metric-change {
-    font-size: 7px;
+    font-size: 12px;
   }
 }
 @media (max-width:960px) {
@@ -2108,17 +2111,17 @@ input[type=checkbox]:checked:after {
     grid-template-columns: repeat(2,minmax(0,1fr));
   }
   .metric-value {
-    font-size: 28px;
+    font-size: 32px;
   }
   .metric-bottom {
-    font-size: 9px;
+    font-size: 13px;
     gap: 7px;
   }
   .metric-change {
-    font-size: 8px;
+    font-size: 12px;
   }
   .metric-bottom button {
-    font-size: 9px;
+    font-size: 13px;
   }
   .analytics-grid {
     grid-template-columns: 1fr;
@@ -2139,7 +2142,7 @@ input[type=checkbox]:checked:after {
     display: block;
   }
   .heading-actions .button {
-    font-size: 9px;
+    font-size: 13px;
   }
   .pricing-grid,.integration-grid {
     grid-template-columns: 1fr;
@@ -2151,7 +2154,7 @@ input[type=checkbox]:checked:after {
     height: 140px;
   }
   .brand {
-    font-size: 24px;
+    font-size: 26px;
   }
   .login-art {
     padding: 45px 32px;
@@ -2190,7 +2193,7 @@ input[type=checkbox]:checked:after {
   }
   .breadcrumb {
     gap: 8px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .breadcrumb>span {
     display: none;
@@ -2205,7 +2208,7 @@ input[type=checkbox]:checked:after {
     display: none;
   }
   .mode-pill {
-    font-size: 8px;
+    font-size: 12px;
     padding: 5px 7px;
   }
   .avatar.small {
@@ -2223,10 +2226,10 @@ input[type=checkbox]:checked:after {
     margin-bottom: 20px;
   }
   .page-heading h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
   .page-heading p {
-    font-size: 11px;
+    font-size: 15px;
     line-height: 1.6;
     margin-top: 7px;
   }
@@ -2236,12 +2239,12 @@ input[type=checkbox]:checked:after {
     gap: 8px;
   }
   .heading-actions .button {
-    font-size: 10px;
+    font-size: 14px;
     padding: 9px 11px;
     flex: 1;
   }
   .eyebrow {
-    font-size: 7px;
+    font-size: 12px;
   }
   .simulation-banner {
     padding: 12px;
@@ -2249,10 +2252,10 @@ input[type=checkbox]:checked:after {
     margin-bottom: 23px;
   }
   .simulation-banner strong {
-    font-size: 9px;
+    font-size: 13px;
   }
   .simulation-banner span {
-    font-size: 8px;
+    font-size: 12px;
   }
   .banner-icon {
     height: 32px;
@@ -2262,15 +2265,15 @@ input[type=checkbox]:checked:after {
     display: none;
   }
   .section-heading h2 {
-    font-size: 12px;
+    font-size: 16px;
     gap: 6px;
   }
   .subtle-badge {
-    font-size: 7px;
+    font-size: 12px;
     padding: 3px 4px;
   }
   .period-select {
-    font-size: 8px;
+    font-size: 12px;
     padding: 6px;
     gap: 4px;
   }
@@ -2286,7 +2289,7 @@ input[type=checkbox]:checked:after {
     padding: 13px 12px;
   }
   .metric-top {
-    font-size: 9px;
+    font-size: 13px;
   }
   .metric-icon {
     height: 26px;
@@ -2297,18 +2300,18 @@ input[type=checkbox]:checked:after {
     width: 16px;
   }
   .metric-value {
-    font-size: 25px;
+    font-size: 28px;
     margin: 12px 0 14px;
   }
   .metric-bottom {
-    font-size: 7px;
+    font-size: 12px;
     gap: 4px;
   }
   .metric-change {
-    font-size: 7px;
+    font-size: 12px;
   }
   .metric-bottom button {
-    font-size: 7px;
+    font-size: 12px;
   }
   .analytics-grid {
     margin-bottom: 17px;
@@ -2317,13 +2320,13 @@ input[type=checkbox]:checked:after {
     padding: 17px 15px 0;
   }
   .panel-title h2 {
-    font-size: 12px;
+    font-size: 16px;
   }
   .panel-title p {
-    font-size: 8px;
+    font-size: 12px;
   }
   .chart-legend {
-    font-size: 7px;
+    font-size: 12px;
     gap: 4px;
   }
   .chart-legend>span {
@@ -2335,14 +2338,14 @@ input[type=checkbox]:checked:after {
     height: 180px;
   }
   .chart-y {
-    font-size: 7px;
+    font-size: 12px;
     min-width: 35px;
   }
   .chart-x {
-    font-size: 7px;
+    font-size: 12px;
   }
   .chart-footer {
-    font-size: 7px;
+    font-size: 12px;
     margin-left: 15px;
     margin-right: 15px;
   }
@@ -2350,7 +2353,7 @@ input[type=checkbox]:checked:after {
     padding: 18px 15px 0;
   }
   .orders-panel .panel-title>.text-button {
-    font-size: 8px;
+    font-size: 12px;
     gap: 4px;
   }
   .orders-panel .panel-title>.text-button svg {
@@ -2377,12 +2380,12 @@ input[type=checkbox]:checked:after {
     overflow-x: auto;
   }
   .tabs button {
-    font-size: 8px;
+    font-size: 12px;
     padding-top: 17px;
     padding-bottom: 12px;
   }
   .tabs button>span {
-    font-size: 6px;
+    font-size: 11px;
   }
   .orders-panel table {
     min-width: 740px;
@@ -2391,7 +2394,7 @@ input[type=checkbox]:checked:after {
     padding: 12px 15px;
   }
   .page-footer {
-    font-size: 7px;
+    font-size: 12px;
     padding: 21px 0 25px;
   }
   .page-footer svg {
@@ -2400,7 +2403,7 @@ input[type=checkbox]:checked:after {
   }
   .table-footer {
     padding: 11px 15px;
-    font-size: 7px;
+    font-size: 12px;
   }
   .catalog-grid {
     gap: 10px;
@@ -2419,28 +2422,28 @@ input[type=checkbox]:checked:after {
     padding: 9px;
   }
   .product-card>small {
-    font-size: 7px;
+    font-size: 12px;
   }
   .product-card h3 {
-    font-size: 11px;
+    font-size: 15px;
     line-height: 1.5;
     min-height: 33px;
     margin: 7px 0 12px;
   }
   .product-prices {
-    font-size: 8px;
+    font-size: 12px;
     gap: 5px;
   }
   .product-prices strong {
-    font-size: 11px;
+    font-size: 15px;
   }
   .product-card .button {
-    font-size: 8px;
+    font-size: 12px;
     padding: 8px;
     gap: 4px;
   }
   .catalog-image .status {
-    font-size: 6px;
+    font-size: 11px;
     top: 5px;
     right: 5px;
     padding: 4px;
@@ -2450,11 +2453,11 @@ input[type=checkbox]:checked:after {
     gap: 15px;
   }
   .pricing-fields label {
-    font-size: 10px;
+    font-size: 14px;
   }
   .pricing-grid .form-note {
     padding: 0 20px 20px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .price-result {
     padding: 25px;
@@ -2466,7 +2469,7 @@ input[type=checkbox]:checked:after {
     font-size: 19px;
   }
   .setting-row {
-    font-size: 10px;
+    font-size: 14px;
     gap: 15px;
     flex-direction: column;
     padding: 18px 0;
@@ -2478,17 +2481,17 @@ input[type=checkbox]:checked:after {
     padding: 18px 0;
   }
   .audit-row strong {
-    font-size: 10px;
+    font-size: 14px;
   }
   .audit-row small {
-    font-size: 8px;
+    font-size: 12px;
   }
   .audit-row>span:nth-last-child(2) {
     display: none;
   }
   .audit-row .status {
     margin-left: auto;
-    font-size: 7px;
+    font-size: 12px;
   }
   .audit-row .event-icon {
     width: 30px;
@@ -2499,13 +2502,13 @@ input[type=checkbox]:checked:after {
     padding: 15px 20px;
   }
   .finance-lines>div {
-    font-size: 11px;
+    font-size: 15px;
   }
   .toast {
     left: 17px;
     right: 17px;
     bottom: 17px;
-    font-size: 11px;
+    font-size: 15px;
     padding: 14px;
     gap: 8px;
   }
@@ -2529,20 +2532,20 @@ input[type=checkbox]:checked:after {
     gap: 3px;
   }
   .order-flow>div {
-    font-size: 7px;
+    font-size: 12px;
     line-height: 1.4;
   }
   .notice {
-    font-size: 10px;
+    font-size: 14px;
   }
   .order-checks {
-    font-size: 10px;
+    font-size: 14px;
   }
   .modal .check-label {
-    font-size: 10px;
+    font-size: 14px;
   }
   .modal .form-note {
-    font-size: 10px;
+    font-size: 14px;
   }
   .login-page {
     grid-template-columns: 1fr;
@@ -2556,14 +2559,14 @@ input[type=checkbox]:checked:after {
     letter-spacing: -1.3px;
   }
   .login-art>p {
-    font-size: 11px;
+    font-size: 15px;
     margin-top: 15px;
     max-width: 250px;
   }
   .login-art .brand {
     top: 28px;
     left: 28px;
-    font-size: 24px;
+    font-size: 26px;
   }
   .login-art .brand svg {
     height: 23px;
@@ -2583,7 +2586,7 @@ input[type=checkbox]:checked:after {
     display: none;
   }
   .login-form h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
   .login-form>p {
     margin-bottom: 25px;
@@ -2593,6 +2596,555 @@ input[type=checkbox]:checked:after {
   * {
     transition: none !important;
     animation: none !important;
+  }
+}
+body {
+  line-height: 1.5;
+}
+.sidebar {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.sidebar>nav,.sidebar>.brand,.sidebar>.store-switch,.sidebar-bottom {
+  flex-shrink: 0;
+}
+.sidebar .brand {
+  line-height: 1.2;
+}
+.nav-item {
+  line-height: 1.4;
+}
+.nav-group {
+  color: #617366;
+  font-weight: 650;
+  letter-spacing: 1.3px;
+}
+.store-switch small,.sidebar-footer small,.help-card p {
+  color: #617267;
+}
+.breadcrumb,.page-heading p,.eyebrow,.metric-top,.metric-bottom,.chart-y,.chart-x,.chart-footer,.panel-title p,.connection small,.connection-meta,.page-footer,.table-footer,.muted,th,td,.product-cell small,.product-card>small,.product-prices,.form-note,.modal>p,.modal>small,.order-modal-product p,.order-flow>div,.help-steps p,.notification-item p,.setting-row,.audit-row,.audit-row small,.finance-lines>div,.login-form>p,.login-form small {
+  color: #617267;
+}
+.eyebrow {
+  letter-spacing: 1.2px;
+}
+.metric-bottom {
+  flex-wrap: wrap;
+  row-gap: 6px;
+  min-height: 28px;
+  white-space: normal;
+  line-height: 1.5;
+}
+.metric-bottom button {
+  margin-left: 0;
+  min-height: 28px;
+}
+.metric-change {
+  font-weight: 600;
+  color: #24704b;
+}
+.metric-card {
+  min-width: 0;
+}
+.metric-value {
+  line-height: 1.25;
+  letter-spacing: -.8px;
+}
+.metric-top {
+  line-height: 1.45;
+  align-items: flex-start;
+}
+.analytics-grid {
+  grid-template-columns: minmax(0,1fr) 340px;
+}
+.connection strong {
+  line-height: 1.4;
+}
+.connection small {
+  line-height: 1.5;
+}
+.connection-health {
+  color: #4f704e;
+  line-height: 1.6;
+}
+.simulation-banner strong {
+  color: #48613e;
+  line-height: 1.5;
+}
+.simulation-banner span {
+  color: #5b7150;
+  line-height: 1.7;
+}
+.simulation-banner button {
+  color: #48613e;
+}
+.status.amber {
+  color: #8a631b;
+}
+.status.red {
+  color: #a04c40;
+}
+.status.blue {
+  color: #3c6486;
+}
+.status.green {
+  color: #316e48;
+}
+.status.purple {
+  color: #6d588d;
+}
+.status.neutral {
+  color: #59685b;
+}
+.subtle-badge,.count-badge {
+  color: #5d705e;
+}
+.tabs {
+  gap: 18px;
+}
+.tabs button {
+  color: #637566;
+  line-height: 1.5;
+}
+.tabs button.selected {
+  color: #216b4d;
+}
+.tabs button>span {
+  color: #805f22;
+}
+.search-input input {
+  font-size: 14px;
+  min-width: 0;
+}
+.search-input input::placeholder {
+  color: #6b7c6b;
+}
+.orders-toolbar {
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+.orders-toolbar .table-tools {
+  margin-left: auto;
+}
+.table-tools {
+  flex-shrink: 0;
+}
+.table-scroll table {
+  min-width: 850px;
+}
+.product-cell strong {
+  line-height: 1.5;
+}
+.product-cell small {
+  line-height: 1.4;
+}
+th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 1.5;
+}
+.status {
+  line-height: 1.35;
+  padding: 6px 8px;
+}
+.row-open {
+  min-width: 32px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+}
+.pagination {
+  min-width: 32px;
+  min-height: 32px;
+  font-size: 13px;
+}
+input[type=checkbox] {
+  height: 16px;
+  width: 16px;
+}
+input[type=checkbox]:checked:after {
+  font-size: 11px;
+}
+.check-label input {
+  margin-top: 4px;
+}
+.button {
+  min-height: 40px;
+  line-height: 1.4;
+}
+.button.compact {
+  min-height: 36px;
+}
+.modal {
+  max-width: 700px;
+}
+.modal form {
+  gap: 19px;
+}
+.modal .check-label {
+  line-height: 1.7;
+}
+.order-modal-product {
+  flex-wrap: wrap;
+}
+.notice {
+  color: #6e713f;
+  line-height: 1.75;
+}
+.order-flow {
+  gap: 6px;
+}
+.order-flow>div {
+  line-height: 1.5;
+}
+.order-flow>div>span {
+  width: 28px;
+  height: 28px;
+}
+.order-flow>div:after {
+  top: 14px;
+}
+.order-checks {
+  line-height: 1.65;
+}
+.order-checks>span {
+  align-items: flex-start;
+}
+.product-card h3 {
+  line-height: 1.5;
+  min-height: 45px;
+}
+.product-prices {
+  gap: 10px;
+  line-height: 1.6;
+}
+.setting-row,.audit-row,.finance-lines>div {
+  line-height: 1.6;
+}
+.audit-row {
+  flex-wrap: wrap;
+}
+.audit-row>span:nth-last-child(2) {
+  white-space: normal;
+}
+.finance-lines>div {
+  gap: 15px;
+}
+.finance-lines strong {
+  text-align: right;
+}
+.login-form label {
+  font-size: 15px;
+}
+.login-form input {
+  font-size: 16px;
+  min-height: 45px;
+}
+.login-form .button {
+  font-size: 16px;
+  min-height: 46px;
+}
+@media (max-width:1200px) {
+  .analytics-grid {
+    grid-template-columns: minmax(0,1fr) 300px;
+  }
+  .orders-toolbar .tabs {
+    overflow-x: auto;
+  }
+  .metric-value {
+    font-size: 28px;
+  }
+  .top-actions {
+    gap: 15px;
+  }
+}
+@media (max-width:960px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-heading {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .page-heading p {
+    line-height: 1.7;
+  }
+  .pricing-fields {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width:700px) {
+  .sidebar {
+    width: 280px;
+  }
+  .metric-card {
+    padding: 14px 12px;
+  }
+  .metric-top {
+    font-size: 13px;
+    gap: 5px;
+  }
+  .metric-icon {
+    flex-shrink: 0;
+  }
+  .metric-value {
+    font-size: 26px;
+  }
+  .metric-bottom,.metric-change,.metric-bottom button {
+    font-size: 12px;
+  }
+  .metric-bottom {
+    column-gap: 5px;
+  }
+  .metric-top>span:first-child {
+    max-width: 115px;
+  }
+  .heading-actions {
+    flex-wrap: wrap;
+  }
+  .heading-actions .button {
+    font-size: 14px;
+    white-space: normal;
+  }
+  .simulation-banner strong {
+    font-size: 13px;
+  }
+  .simulation-banner span {
+    font-size: 12px;
+  }
+  .banner-icon {
+    align-self: flex-start;
+    margin-top: 3px;
+  }
+  .section-heading h2 {
+    font-size: 16px;
+  }
+  .section-heading h2 .subtle-badge {
+    display: none;
+  }
+  .period-select {
+    font-size: 13px;
+  }
+  .topbar {
+    padding: 0 13px;
+  }
+  .top-actions {
+    gap: 11px;
+  }
+  .mode-pill {
+    font-size: 11px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+  }
+  .panel-title {
+    flex-wrap: wrap;
+  }
+  .panel-title h2 {
+    font-size: 17px;
+  }
+  .panel-title p {
+    font-size: 13px;
+  }
+  .chart-legend {
+    font-size: 12px;
+  }
+  .sales-chart {
+    gap: 7px;
+    margin-top: 22px;
+    height: 205px;
+  }
+  .chart-y {
+    min-width: 46px;
+    font-size: 11px;
+    padding-bottom: 32px;
+  }
+  .chart-x {
+    font-size: 12px;
+  }
+  .chart-plot svg {
+    height: calc(100% - 32px);
+  }
+  .grid-lines {
+    bottom: 32px;
+  }
+  .chart-footer {
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 11px;
+  }
+  .orders-panel .panel-title>.text-button {
+    font-size: 13px;
+  }
+  .orders-toolbar .tabs {
+    gap: 20px;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .tabs button {
+    font-size: 13px;
+  }
+  .tabs button>span {
+    font-size: 11px;
+  }
+  .search-input input {
+    font-size: 15px;
+  }
+  .button.compact {
+    font-size: 13px;
+  }
+  .table-footer {
+    font-size: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .page-footer {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .page-footer>span {
+    flex-wrap: wrap;
+  }
+  .catalog-toolbar {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .catalog-toolbar .search-input {
+    width: 100%;
+  }
+  .catalog-toolbar .search-input input {
+    width: 100%;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+  .catalog-image img {
+    height: 180px;
+  }
+  .catalog-image .status {
+    font-size: 12px;
+  }
+  .product-card {
+    padding: 14px;
+  }
+  .product-card>small {
+    font-size: 13px;
+  }
+  .product-card h3 {
+    font-size: 17px;
+    min-height: 0;
+  }
+  .product-prices {
+    font-size: 13px;
+  }
+  .product-prices strong {
+    font-size: 17px;
+  }
+  .product-card .button {
+    font-size: 15px;
+    min-height: 42px;
+  }
+  .modal {
+    padding: 28px 19px;
+  }
+  .modal h2 {
+    font-size: 22px;
+    padding-right: 20px;
+  }
+  .modal .check-label,.order-checks,.modal .form-note,.notice {
+    font-size: 14px;
+  }
+  .order-modal-product strong {
+    font-size: 15px;
+  }
+  .order-modal-product p {
+    font-size: 13px;
+  }
+  .order-modal-product>.status {
+    font-size: 12px;
+    margin-left: 0;
+  }
+  .order-flow {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+  .order-flow>div {
+    font-size: 12px;
+    min-width: 80px;
+    flex: 1;
+  }
+  .order-flow>div:after {
+    display: none;
+  }
+  .form-columns {
+    grid-template-columns: 1fr;
+  }
+  .modal form>label,.form-columns label {
+    font-size: 15px;
+  }
+  .modal input:not([type=checkbox]),.modal select {
+    font-size: 16px;
+  }
+  .help-steps strong,.notification-item strong {
+    font-size: 16px;
+  }
+  .help-steps p,.notification-item p {
+    font-size: 14px;
+  }
+  .integration-card>small {
+    font-size: 13px;
+  }
+  .integration-card p,.integration-card li {
+    font-size: 15px;
+  }
+  .integration-card>.status {
+    font-size: 12px;
+  }
+  .setting-row {
+    font-size: 15px;
+  }
+  .audit-row strong {
+    font-size: 14px;
+  }
+  .audit-row small {
+    font-size: 12px;
+  }
+  .audit-row .status {
+    font-size: 12px;
+  }
+  .finance-lines>div {
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+  .pricing-fields label {
+    font-size: 15px;
+  }
+  .pricing-fields input {
+    font-size: 16px;
+  }
+  .pricing-grid .form-note {
+    font-size: 14px;
+  }
+  .toast {
+    font-size: 14px;
+  }
+  .login-art>p,.login-form>p {
+    font-size: 15px;
+  }
+}
+@media (max-width:360px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+  .metric-top>span:first-child {
+    max-width: none;
+  }
+  .metric-value {
+    font-size: 30px;
   }
 }
 @property --tw-rotate-x {
@@ -2698,4 +3250,4 @@ input[type=checkbox]:checked:after {
   }
 }
 
-.setup-page{max-width:760px;padding:35px 20px;margin:auto;min-height:100vh}.setup-card{background:white;border:1px solid #e3e9e0;border-radius:13px;padding:30px;margin:25px 0}.setup-card h1{margin:20px 0 12px}.setup-card p,.setup-card ol{font-size:12px;line-height:1.9;color:#7b8d79}.setup-card ol{list-style:decimal;padding-left:20px;margin:20px 0}.setup-card form{display:flex;flex-direction:column;gap:17px;margin:25px 0}.setup-card label{display:flex;flex-direction:column;gap:7px;font-size:12px;color:#698064}.setup-card input,.setup-card select{border:1px solid #dce5d7;padding:11px;border-radius:6px;background:white;width:100%;font-size:12px}.setup-card code{font-size:11px;overflow-wrap:anywhere}.setup-card h2{margin-top:30px}.setup-card .form-columns{gap:15px}.setup-card .notice{overflow-wrap:anywhere}@media(max-width:600px){.setup-card{padding:22px 18px}.setup-card .form-columns{grid-template-columns:1fr}}
+.setup-page{max-width:760px;padding:35px 20px;margin:auto;min-height:100vh}.setup-card{background:white;border:1px solid #e3e9e0;border-radius:13px;padding:30px;margin:25px 0}.setup-card h1{margin:20px 0 12px}.setup-card p,.setup-card ol{font-size:16px;line-height:1.8;color:#617267}.setup-card ol{list-style:decimal;padding-left:20px;margin:20px 0}.setup-card form{display:flex;flex-direction:column;gap:17px;margin:25px 0}.setup-card label{display:flex;flex-direction:column;gap:7px;font-size:15px;color:#52664e}.setup-card input,.setup-card select{border:1px solid #dce5d7;padding:11px;border-radius:6px;background:white;width:100%;font-size:16px}.setup-card code{font-size:14px;overflow-wrap:anywhere}.setup-card h2{margin-top:30px}.setup-card .form-columns{gap:15px}.setup-card .notice{overflow-wrap:anywhere}@media(max-width:600px){.setup-card{padding:22px 18px}.setup-card .form-columns{grid-template-columns:1fr}}
