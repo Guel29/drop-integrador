@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__).'/api/lib.php';require dirname(__DIR__).'/api/supplier-catalog.php';
+if(config()['admin_email']!=='test-admin@example.test')throw new RuntimeException('Use somente a instalação isolada de testes');
+function check_supplier(bool $value,string $name): void {if(!$value)throw new RuntimeException('FAILED '.$name);echo 'PASS '.$name.PHP_EOL;}
+// Synthetic URL used only to validate local parsing; no request is sent to the supplier.
+$p=['sku'=>'TEST-SUPPLIER-1','title'=>'Produto de teste local','cost'=>11600,'stock'=>null,'availability'=>'unknown','sourceUrl'=>'https://meudropbrasil.com/test-fixture/?session=not-kept#fragment'];
+$n=normalize_supplier_product($p);check_supplier($n['stock']===null&&$n['availability']==='unknown','unknown stock is not fabricated');check_supplier(!str_contains($n['sourceUrl'],'?')&&!str_contains($n['sourceUrl'],'#'),'source link excludes query and fragment');
+foreach(['http://meudropbrasil.com/test','https://meudropbrasil.com.evil.example/test','https://user:password@meudropbrasil.com/test','https://127.0.0.1/test'] as $url){$blocked=false;try{normalize_supplier_product(array_replace($p,['sourceUrl'=>$url]));}catch(InvalidArgumentException){$blocked=true;}check_supplier($blocked,'invalid supplier origin rejected');}
+$before=setting('supplier_catalog','[]');try{import_supplier_catalog([$p]);$a=import_supplier_catalog([$p]);check_supplier($a['total']===count(supplier_catalog()),'reimport deduplicated');$adapter=new CatalogSupplierAdapter;$blocked=false;try{$adapter->getStock($p['sku']);}catch(RuntimeException){$blocked=true;}check_supplier($blocked,'unknown quantity cannot approve stock');$blocked=false;try{$adapter->createOrder(['items'=>[]]);}catch(RuntimeException){$blocked=true;}check_supplier($blocked,'assisted catalog never purchases');$bad=false;try{import_supplier_catalog([$p,array_replace($p,['cost'=>-1])]);}catch(InvalidArgumentException){$bad=true;}check_supplier($bad,'invalid batch rejected before persistence');}finally{set_setting('supplier_catalog',$before);}

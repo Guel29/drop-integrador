@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 ini_set('display_errors','0');ini_set('log_errors','1');
-require __DIR__.'/lib.php';require __DIR__.'/mercado.php';require __DIR__.'/install.php';
+require __DIR__.'/lib.php';require __DIR__.'/mercado.php';require __DIR__.'/install.php';require __DIR__.'/supplier-catalog.php';
 header('X-Content-Type-Options: nosniff');header('Cache-Control: no-store');
 $path='/'.trim((string)($_GET['route']??''),'/');$method=$_SERVER['REQUEST_METHOD']??'GET';
 try{
@@ -17,6 +17,8 @@ try{
  if($path==='/auth/login'&&$method==='POST'){$b=body();$c=config();$bucket=hash_hmac('sha256',($_SERVER['REMOTE_ADDR']??'local').':'.intdiv(time(),60),$c['encryption_key']);sql('DELETE FROM login_attempts WHERE expires_at<?',[time()]);sql('INSERT INTO login_attempts(bucket,expires_at) VALUES(?,?) ON DUPLICATE KEY UPDATE attempts=attempts+1',[$bucket,time()+120]);if((int)sql('SELECT attempts FROM login_attempts WHERE bucket=?',[$bucket])->fetchColumn()>10)json_response(['error'=>'Aguarde um minuto antes de tentar novamente.'],429);$password=$b['password']??'';if(!is_string($password)||strlen($password)>256||($b['email']??'')!==$c['admin_email']||!password_verify($password,$c['admin_password_hash']))json_response(['error'=>'Credenciais inválidas'],401);session_regenerate_id(true);$_SESSION['admin']=true;$_SESSION['expires']=time()+28800;$_SESSION['csrf']=bin2hex(random_bytes(32));audit('auth.login');json_response(['ok'=>true]);}
  if($path==='/auth/logout'&&$method==='POST'){$_SESSION=[];session_destroy();setcookie(session_name(),'', ['expires'=>1,'path'=>'/','httponly'=>true,'secure'=>str_starts_with(config()['app_url'],'https://'),'samesite'=>'Lax']);json_response(['ok'=>true]);}
  admin();
+ if($path==='/supplier/catalog'&&$method==='GET')json_response(['products'=>supplier_catalog(),'automaticallyConnected'=>false,'method'=>'assisted','purchasingEnabled'=>false]);
+ if($path==='/supplier/catalog'&&$method==='POST'){try{$b=body();if(($b['confirmed']??false)!==true||!is_array($b['products']??null))throw new InvalidArgumentException('Revise os produtos e confirme a importação.');json_response(import_supplier_catalog($b['products']));}catch(InvalidArgumentException $e){json_response(['error'=>$e->getMessage()],400);}}
  if($path==='/health'&&$method==='GET'){sql('SELECT 1');json_response(['status'=>'ok','edition'=>'php-mysql','queue'=>'cron']);}
  if($path==='/catalog'&&$method==='GET')json_response(simulation()?(new MockSupplierAdapter)->getProducts():sql('SELECT * FROM products')->fetchAll(PDO::FETCH_ASSOC));
  if($path==='/order-states'&&$method==='GET')json_response(sql('SELECT id,manual_approved,supplier_order_id,supplier_paid,label_prepared FROM orders WHERE simulated=1')->fetchAll(PDO::FETCH_ASSOC));

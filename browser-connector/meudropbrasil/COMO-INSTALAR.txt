@@ -1,0 +1,30 @@
+SMART DROP — EXTENSÃO CHROME DE LEITURA ASSISTIDA
+
+1. Baixe e extraia este ZIP em uma pasta no seu computador.
+2. No Chrome do computador, abra chrome://extensions.
+3. Ative Modo do desenvolvedor e clique em Carregar sem compactação.
+4. Selecione a pasta que contém manifest.json.
+5. Fixe a extensão na barra, abra o MeuDropBrasil e faça seu login normal NO SITE DELES.
+6. Abra um produto ou catálogo e clique na extensão > Ler produtos desta página.
+7. Clique em Revisar no integrador. Entre no seu Smart Drop caso necessário.
+8. Confira SKU, custo em reais, disponibilidade e link antes de confirmar.
+
+Não é necessário instalar Node nem outro servidor para esta extensão.
+Não instale a extensão pelo Gerenciador de Arquivos da Hostinger: ela é do Chrome no computador.
+Ela não pede senha, não acessa cookies e não compra. As permissões activeTab e scripting
+permitem ler somente a aba acionada pelo usuário. O destino é fixo em drop.instara.com.br.
+Os dados do produto são transferidos no fragmento da URL, sem senha ou token e sem
+requisição automática à API do integrador. Só são gravados após revisão e confirmação.
+
+A leitura usa metadados Product/Offer JSON-LD quando presentes. Esse formato é padrão,
+mas sua existência no MeuDropBrasil NÃO foi confirmada neste ambiente. Se faltar SKU,
+preço em BRL ou outros campos, confira e complete manualmente. Não há seletores ou
+endpoints privados presumidos. Nenhuma página de pagamento é preenchida ou submetida.
+Se não houver metadados, você pode preencher SKU, nome e custo manualmente.
+A quantidade de estoque não é inferida a partir do botão Adicionar ao carrinho.
+
+Limites: até 20 produtos por revisão; não percorre todas as páginas automaticamente,
+não atualiza estoque continuamente, não renova login e não cria pedidos no fornecedor.
+É uma primeira etapa assistida, não uma integração automática validada com o site real.
+Use apenas dados que você tem autorização para importar. Nunca compartilhe sua senha.
+A extensão não é afiliada ao fornecedor e o navegador pode alertar que não veio da loja.

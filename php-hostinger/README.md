@@ -24,3 +24,13 @@ O Docker usado aqui é apenas um ambiente de teste, não é necessário na hospe
 6. `docker compose -f php-hostinger/tests/compose.yaml exec -T web php /var/www/html/tests/persistence.php`
 
 O teste de persistência se recusa a executar sem o marcador de administrador do ambiente isolado. O teste de instalação cria uma chave efêmera e a remove. Não redefine uma instalação existente. Credenciais fixas do Compose de testes destinam-se apenas ao contêiner descartável e não entram no ZIP de hospedagem.
+
+## MeuDropBrasil: catálogo assistido e extensão
+
+Acesse `/fornecedor` pelo botão em Integrações. A tela oferece o download da extensão em `/downloads/smartdrop-meudropbrasil-chrome.zip`, instruções para instalar manualmente em cada computador/perfil Chrome, revisão de produtos e registros importados. O login no integrador preserva o fragmento da revisão quando a sessão ainda não estava autenticada.
+
+`GET/POST /api/supplier/catalog` exige administrador; o POST também exige CSRF, origem válida, `confirmed: true` e uma lista de até 20 produtos. Preços são centavos inteiros; estoque pode ser null e não se presume quantidade a partir da disponibilidade. Reimportar o mesmo SKU atualiza a observação. O conteúdo fica na configuração `supplier_catalog` no MySQL, separado dos exemplos e sem modificar anúncios/pedidos. Esta atualização não exige migração nem reinstalação.
+
+A extensão usa somente `activeTab` e `scripting`. Não pede senha ou cookies, não efetua compras e só tenta ler metadados Product/Offer após clique do usuário. O download permanece disponível no site para novas instalações; não há instalação automática pelo site ou publicação na Chrome Web Store. Chrome de celular não suporta esse fluxo de extensão.
+
+Dados ausentes são preenchidos manualmente na revisão. Testes usam páginas sintéticas, não uma sessão real do fornecedor; não foi possível acessar o site real a partir deste ambiente. Não declare conta automaticamente conectada ou estoque atualizado continuamente. A classe CatalogSupplierAdapter bloqueia criação de pedidos e falha ao consultar quantidade desconhecida. O adaptador padrão de compras simuladas não é substituído por estes registros.
