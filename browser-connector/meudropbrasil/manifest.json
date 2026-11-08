@@ -1,1 +1,14 @@
-{"manifest_version":3,"name":"Smart Drop · Catálogo MeuDropBrasil","version":"0.1.0","description":"Leitura assistida de produtos do MeuDropBrasil, com revisão no seu integrador. Não acessa senhas nem faz compras.","permissions":["activeTab","scripting"],"action":{"default_popup":"popup.html","default_title":"Ler produtos para o Smart Drop"}}
+{
+  "manifest_version": 3,
+  "name": "Smart Drop · Catálogo MeuDropBrasil",
+  "version": "0.2.0",
+  "description": "Leitura assistida de produtos do MeuDropBrasil, com revisão no seu integrador. Não acessa senhas nem faz compras.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ler produtos para o Smart Drop"
+  }
+}

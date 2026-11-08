@@ -1,11 +1,15 @@
-Entre no integrador e abra Integrações > Catálogo real e extensão Chrome.
-O botão Baixar extensão estará disponível sempre que acessar de outro computador.
-Extraia o ZIP no computador e, no Chrome, abra chrome://extensions > Modo do desenvolvedor > Carregar sem compactação.
-Selecione a pasta que contém manifest.json. A extensão não é instalada pelo servidor nem automaticamente pelo site.
-Faça login no próprio MeuDropBrasil e abra um produto. Na extensão, use Ler produtos desta página > Revisar no integrador.
-Complete campos ausentes e confirme a importação. Você pode também cadastrar produtos manualmente na tela do integrador.
-A extensão não solicita sua senha, não copia cookies e não faz compras.
-A leitura é assistida e depende de dados estruturados da página; caso não existam, complete manualmente.
-A integração com as páginas reais do MeuDropBrasil ainda precisa ser validada por você; os testes realizados usaram páginas sintéticas.
-Não atualiza continuamente o estoque. Uma quantidade não informada permanece desconhecida, sem presumir disponibilidade para compra.
-A extensão é para Chrome no computador, não para Chrome de celular.
+EXTENSÃO SMART DROP v0.2.0
+Acesse Integrações > Catálogo real e extensão Chrome no integrador e baixe a versão 0.2.0.
+Se você instalou a versão 0.1.0, remova a extensão antiga em chrome://extensions.
+Extraia TODO o novo ZIP em uma pasta no computador. Ative Modo do desenvolvedor > Carregar sem compactação e escolha a pasta do manifest.json.
+Abra a extensão: deve aparecer v0.2.0 e a mensagem Versão 0.2.0 pronta.
+Atualizar a Hostinger não atualiza automaticamente uma extensão já instalada no Chrome.
+Entre no MeuDropBrasil pelo próprio site e abra a página detalhada de um produto.
+Use Ler produtos desta página. A leitura tenta dados estruturados, microdados e texto visível.
+Se faltar um campo ou houver preço ambíguo, use Selecionar campos na página. Escolha Nome, Preço em R$, SKU e EAN e clique nos textos do produto.
+Envie para revisão, complete campos ausentes e confira antes de confirmar a importação.
+O EAN não é convertido em SKU. Estoque sem quantidade permanece desconhecido.
+A extensão não copia cookies/senhas, não aciona compras e não sincroniza continuamente.
+Esta versão foi testada com páginas sintéticas e seleção interativa; confirme os dados na sua página real.
+O diagnóstico da extensão contém só versão, origem e método de leitura. Não envie senhas em prints.
+Para Chrome no computador; a instalação é manual em cada computador ou perfil.

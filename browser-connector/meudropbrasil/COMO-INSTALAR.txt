@@ -1,30 +1,46 @@
-SMART DROP — EXTENSÃO CHROME DE LEITURA ASSISTIDA
+SMART DROP — EXTENSÃO CHROME v0.2.0
 
-1. Baixe e extraia este ZIP em uma pasta no seu computador.
-2. No Chrome do computador, abra chrome://extensions.
-3. Ative Modo do desenvolvedor e clique em Carregar sem compactação.
-4. Selecione a pasta que contém manifest.json.
-5. Fixe a extensão na barra, abra o MeuDropBrasil e faça seu login normal NO SITE DELES.
-6. Abra um produto ou catálogo e clique na extensão > Ler produtos desta página.
-7. Clique em Revisar no integrador. Entre no seu Smart Drop caso necessário.
-8. Confira SKU, custo em reais, disponibilidade e link antes de confirmar.
+ATUALIZAR A VERSÃO 0.1.0:
+1. Abra chrome://extensions e remova a extensão Smart Drop antiga.
+2. Extraia TODO este ZIP em uma nova pasta no computador.
+3. No Chrome, ative Modo do desenvolvedor > Carregar sem compactação.
+4. Selecione a pasta que contém manifest.json. Não selecione o ZIP fechado.
+5. Fixe a extensão na barra. Ao abrir, deve aparecer v0.2.0 e a mensagem
+   "Versão 0.2.0 pronta". Atualizar somente o site não atualiza uma extensão
+   que você já instalou manualmente no Chrome.
 
-Não é necessário instalar Node nem outro servidor para esta extensão.
-Não instale a extensão pelo Gerenciador de Arquivos da Hostinger: ela é do Chrome no computador.
-Ela não pede senha, não acessa cookies e não compra. As permissões activeTab e scripting
-permitem ler somente a aba acionada pelo usuário. O destino é fixo em drop.instara.com.br.
-Os dados do produto são transferidos no fragmento da URL, sem senha ou token e sem
-requisição automática à API do integrador. Só são gravados após revisão e confirmação.
+LER O PRODUTO:
+Entre normalmente no site MeuDropBrasil e abra a página detalhada do produto.
+Clique no ícone da extensão e depois em Ler produtos desta página.
+A versão 0.2 tenta JSON-LD, microdados, Open Graph e texto visível do produto.
+Ela reconhece preço em reais e rótulos como EAN Principal e SKU quando presentes.
+Preço com parcelas, múltiplos valores ou faixa não é escolhido automaticamente.
+EAN não é tratado como SKU. Campo ausente continua vazio para revisão.
 
-A leitura usa metadados Product/Offer JSON-LD quando presentes. Esse formato é padrão,
-mas sua existência no MeuDropBrasil NÃO foi confirmada neste ambiente. Se faltar SKU,
-preço em BRL ou outros campos, confira e complete manualmente. Não há seletores ou
-endpoints privados presumidos. Nenhuma página de pagamento é preenchida ou submetida.
-Se não houver metadados, você pode preencher SKU, nome e custo manualmente.
-A quantidade de estoque não é inferida a partir do botão Adicionar ao carrinho.
+SE A LEITURA NÃO FOR SUFICIENTE:
+1. Na extensão clique em Selecionar campos na página. A janela da extensão fecha
+   e aparece um pequeno painel Smart Drop sobre a página do fornecedor.
+2. No painel escolha Nome e clique no título do produto.
+3. Escolha Preço em R$ e clique no preço total, por exemplo R$ 26,00.
+4. Escolha SKU e clique no código do produto, se estiver disponível.
+5. Opcionalmente escolha EAN e clique no código de barras.
+6. Clique em Enviar para revisão. Confira os campos no integrador antes de salvar.
 
-Limites: até 20 produtos por revisão; não percorre todas as páginas automaticamente,
-não atualiza estoque continuamente, não renova login e não cria pedidos no fornecedor.
-É uma primeira etapa assistida, não uma integração automática validada com o site real.
-Use apenas dados que você tem autorização para importar. Nunca compartilhe sua senha.
-A extensão não é afiliada ao fornecedor e o navegador pode alertar que não veio da loja.
+A seleção impede a ação normal dos cliques enquanto um campo está sendo escolhido;
+não aciona botões de carrinho/compra. Não permite ler inputs de senha ou formulários.
+Use Esc para cancelar uma seleção ou Fechar para retirar o painel. A seleção fica
+somente naquela aba e pode ser recuperada reabrindo a extensão antes de navegar.
+
+Se um botão não responder, confira a versão instalada e a mensagem exibida.
+O painel Diagnóstico informa somente versão, origem e método de leitura; não inclui
+senhas, cookies ou o HTML completo. Não envie seus dados de login em prints.
+
+A extensão não faz compras, não copia cookies e não usa sua senha.
+A quantidade de estoque continua desconhecida quando não foi informada.
+Não atualiza continuamente o catálogo nem é uma integração automática de pedidos.
+Destino de revisão: drop.instara.com.br/fornecedor, autenticado no seu integrador.
+A gravação exige confirmação manual e não publica anúncios.
+
+A compatibilidade foi testada com páginas sintéticas e seleção em navegador,
+sem acesso à sessão real do fornecedor. Se algum campo não for lido, selecione-o
+explicitamente ou complete no integrador. Chrome de celular não suporta este fluxo.
