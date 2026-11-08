@@ -11,3 +11,6 @@ playwright-report
 *.tsbuildinfo
 
 dist-hostinger
+
+**/.private
+**/setup-key.php

@@ -1,3 +1,5 @@
+> **Hospedagem por pasta/subdomínio (PHP/MySQL):** a variante autorizada está em [`php-hostinger/`](php-hostinger/README.md). O pacote `dist-hostinger/smartdrop-hostinger-php.zip` contém arquivos compilados para extrair diretamente em `public_html/drop`, sem Node ou Redis no servidor. Leia `COMO-INSTALAR.txt` dentro desse ZIP. O projeto Next.js abaixo foi preservado como variante separada.
+
 # Smart Drop Integrador
 
 Aplicativo de gestão de dropshipping entre Mercado Livre Brasil e um fornecedor, com Next.js, TypeScript, Tailwind CSS, PostgreSQL/Prisma e Redis/BullMQ. A primeira versão inicia **em simulação**.

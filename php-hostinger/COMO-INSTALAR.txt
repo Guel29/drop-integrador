@@ -1,0 +1,113 @@
+SMART DROP INTEGRADOR — HOSTINGER PHP + MYSQL
+Versão 0.2.0 · aplicação PHP independente, sem Node.js em execução.
+
+1. FAÇA BACKUP DA PASTA DO SUBDOMÍNIO.
+Extraia O CONTEÚDO deste ZIP diretamente em:
+/home/u366235819/domains/instara.com.br/public_html/drop
+
+index.html, .htaccess, api/, assets/ e products/ devem ficar nessa pasta,
+sem outra pasta smartdrop-hpanel ou smartdrop-integrador por cima.
+Ative a visualização de arquivos ocultos para conferir .htaccess.
+Não reimplante nem substitua a aplicação Node.js de instara.com.br.
+Não altere as pastas dos outros subdomínios ou o banco do SmartVendas.
+
+2. USE PHP 8.2 OU SUPERIOR NO SUBDOMÍNIO.
+Extensões necessárias: PDO MySQL, OpenSSL, cURL, JSON e sessões.
+O roteamento .htaccess requer Apache/LiteSpeed com rewrite habilitado.
+Não desative verificações TLS ou cURL. Não precisa de npm, Node ou Redis
+para executar esta edição. Node é usado apenas no desenvolvimento da interface.
+
+3. CRIE UM BANCO MYSQL VAZIO E EXCLUSIVO NO HPANEL.
+Anote host (normalmente localhost), nome, usuário e senha do banco.
+Não use o banco dos seus outros aplicativos. O instalador recusa banco
+com tabelas existentes para preservar os dados dos outros projetos.
+
+4. CRIE O CÓDIGO PRIVADO DE INSTALAÇÃO.
+No Gerenciador de Arquivos, copie:
+api/setup-key.example.php para api/setup-key.php
+
+Edite apenas o texto entre aspas de setup-key.php, substituindo
+SUBSTITUA-POR-UM-CODIGO-PRIVADO por um código privado, aleatório,
+com pelo menos 16 caracteres (pode usar o gerador de senhas do hPanel).
+Não publique nem compartilhe esse código. Ele não é a senha de login.
+Esse passo impede que outra pessoa cadastre um administrador antes de você.
+
+5. ABRA https://drop.instara.com.br E CONCLUA O FORMULÁRIO.
+Informe o código privado, os dados MySQL e seu administrador.
+Você pode usar jjsilva29@gmail.com e cadastrar sua senha de seis dígitos.
+Nenhuma senha foi incluída neste ZIP. A senha é armazenada como hash.
+O primeiro acesso inicia em SIMULAÇÃO, sem compras/publicações reais.
+Depois da instalação, apague somente api/setup-key.php; o instalador
+já fica desativado, mesmo se o arquivo permanecer.
+
+6. ENTRE E TESTE O FLUXO.
+Abra /login. Confira dashboard, produtos, preços e pedidos demonstrativos.
+Abra um pedido, valide logística/documentação fiscal e aprove a simulação.
+Confirme o pagamento simulado ao fornecedor e a etapa da etiqueta.
+Nenhum pagamento, pedido ou arquivo é enviado ao fornecedor.
+As etapas e os rascunhos ficam salvos no MySQL.
+
+7. INTEGRAÇÃO MERCADO LIVRE — QUANDO TIVER CREDENCIAIS REAIS.
+Na tela Integrações, abra Configurar OAuth, SKUs e modo.
+Cadastre a aplicação no portal oficial e informe Client ID e Client Secret.
+Callback exato:
+https://drop.instara.com.br/api/mercado-livre/callback
+Notificações:
+https://drop.instara.com.br/api/webhooks/mercado-livre
+Tópicos de leitura: orders_v2, items, shipments, conforme permissões concedidas.
+Autorize a conta pela tela Integrações. A senha do Mercado Livre nunca é pedida
+pelo integrador. Tokens são criptografados e renovados com trava no banco.
+
+8. PROCESSAMENTO AUTOMÁTICO: TAREFA CRON NO HPANEL.
+Crie uma tarefa PHP a cada minuto (ou no menor intervalo permitido pelo plano),
+apontando para:
+/home/u366235819/domains/instara.com.br/public_html/drop/cron.php
+
+Se o painel pedir um comando completo, use o caminho do executável PHP que
+ELE informar, seguido do caminho absoluto do cron.php acima.
+Não use uma URL web: cron.php é exclusivo para CLI.
+O cron processa até 5 notificações por execução, sem execuções sobrepostas.
+Há deduplicação, 5 tentativas e atrasos exponenciais no MySQL.
+Sem cron, notificações aguardam processamento; a sincronização manual ainda
+pode importar as últimas 50 vendas. Esta edição não usa BullMQ/Redis.
+O limite de tempo e a periodicidade do plano afetam o volume suportado.
+
+9. PRESERVE CONFIGURAÇÃO E DADOS NAS ATUALIZAÇÕES.
+NUNCA exclua .private/ nem substitua seu banco.
+.private/config.php contém a configuração privada e a chave de criptografia;
+faça backup seguro desse arquivo e do MySQL. Perdê-lo impede ler tokens antigos.
+Não envie essa pasta para GitHub ou chats. Não use permissões 777.
+O ZIP de atualização não contém .private/, setup-key.php ou banco de dados.
+
+SE APARECER "EM BREVE":
+Confira se você extraiu os arquivos na pasta correta do subdomínio e se
+index.html e .htaccess estão na raiz de public_html/drop. Faça backup do
+placeholder da Hostinger e remova somente esse placeholder se necessário.
+Limpe o cache da Hostinger/CDN e abra em janela anônima. Não apague outros sites.
+
+SE APARECER ERRO DE INSTALAÇÃO:
+Confira versão/extensões PHP, host e usuário MySQL, senha e permissões no banco.
+O processo PHP precisa poder criar .private/ nessa pasta, como proprietário.
+Não compartilhe senhas, códigos privados, config.php ou tokens em prints.
+
+LIMITES DESTA PRIMEIRA EDIÇÃO:
+- O painel financeiro e os gráficos são demonstrativos em simulação.
+- Leitura real de Mercado Livre depende de credenciais e validação autorizada.
+- Importação manual limitada às últimas 50 vendas; novas vendas usam cron.
+- Pedidos reais sem associação de SKU não são encaminhados ao fornecedor.
+- A compra real do MeuDropBrasil não foi implementada: falta documentação
+  oficial/autorizada. Não foram inventados endpoints ou pagamentos.
+- Publicação e alteração de anúncios reais permanecem bloqueadas.
+- O rascunho de anúncio é interno, não uma publicação no Mercado Livre.
+- A etapa de etiqueta da tela é simulada. O download oficial de etiqueta
+  está preparado por API administrativa para envio elegível, após validações;
+  não envia arquivos automaticamente ao fornecedor.
+- Nota fiscal, regime tributário, origem de expedição e modalidade logística
+  devem ser validados antes da operação real.
+
+VALIDADO FORA DA HOSTINGER:
+PHP 8.3/Apache, MariaDB 11.4, instalador com código privado, login de 6 dígitos,
+CSRF, proteção dos arquivos privados, persistência, pedidos simultâneos sem
+duplicação, estoque, bloqueios de pagamento/logística/fiscal, rascunhos,
+criptografia e rejeição de adulteração, importação idempotente e mobile.
+Sua conta Hostinger não foi acessada e a instalação no domínio não foi executada.

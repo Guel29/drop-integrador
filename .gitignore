@@ -8,3 +8,5 @@ playwright-report/
 test-results/
 
 releases/
+php-hostinger/.private/
+php-hostinger/api/setup-key.php

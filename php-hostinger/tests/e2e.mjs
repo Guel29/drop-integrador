@@ -1,0 +1,42 @@
+import { chromium, request as playwrightRequest } from '@playwright/test';
+import { writeFile,unlink,chmod } from 'node:fs/promises';
+import { randomBytes } from 'node:crypto';
+import assert from 'node:assert/strict';
+const base='http://localhost:8090';const setupKey=randomBytes(32).toString('hex');const password=randomBytes(3).readUIntBE(0,3).toString().slice(0,6).padStart(6,'0');
+await writeFile('php-hostinger/api/setup-key.php',`<?php return '${setupKey}';`,{mode:0o644});
+await chmod('php-hostinger/api/setup-key.php',0o644);
+const api=await playwrightRequest.newContext({baseURL:base});
+try {
+ let session=await (await api.get('/api/session')).json();assert.equal(session.configured,false);
+ const setup={setupKey,app_url:base,db_host:'mysql',db_name:'smartdrop',db_user:'smartdrop',db_password:'local-test-only',email:'test-admin@example.test',password};
+ let result=await api.post('/api/install',{headers:{Origin:base,'X-CSRF-Token':session.csrf},data:{...setup,setupKey:'invalid'}});assert.equal(result.status(),403,await result.text());
+ result=await api.post('/api/install',{headers:{Origin:base,'X-CSRF-Token':session.csrf},data:setup});assert.equal(result.status(),200,await result.text());
+ session=await (await api.get('/api/session')).json();
+ result=await api.post('/api/install',{headers:{Origin:base,'X-CSRF-Token':session.csrf},data:setup});assert.equal(result.status(),409);
+ assert.equal((await api.get('/api/audit')).status(),401);
+ result=await api.post('/api/auth/login',{headers:{Origin:'https://evil.example','X-CSRF-Token':session.csrf},data:{email:setup.email,password}});assert.equal(result.status(),403);
+ result=await api.post('/api/auth/login',{headers:{Origin:base,'X-CSRF-Token':session.csrf},data:{email:setup.email,password}});assert.equal(result.status(),200,await result.text());
+ session=await (await api.get('/api/session')).json();assert.equal(session.authenticated,true);const headers={Origin:base,'X-CSRF-Token':session.csrf};
+ assert.equal((await api.get('/api/health')).status(),200);
+ assert.equal((await api.get('/.private/config.php')).status(),403);
+ assert.equal((await api.get('/cron.php')).status(),404);
+ const id='2000010847291';
+ result=await api.post(`/api/orders/${id}/simulate`,{headers,data:{}});assert.equal(result.status(),503);
+ result=await api.post(`/api/orders/${id}/approve`,{headers,data:{logisticsValidated:true,fiscalValidated:true}});assert.equal(result.status(),200,await result.text());
+ const dispatches=await Promise.all([api.post(`/api/orders/${id}/simulate`,{headers,data:{}}),api.post(`/api/orders/${id}/simulate`,{headers,data:{}})]);
+ const bodies=await Promise.all(dispatches.map(r=>r.json()));assert.equal(bodies[0].id,bodies[1].id);
+ const audit=await(await api.get('/api/audit')).json();assert.equal(audit.filter(e=>e.action==='order.simulate'&&e.entity_id===id).length,1);
+ result=await api.post('/api/orders/2000010847194/approve',{headers,data:{logisticsValidated:true,fiscalValidated:true}});assert.equal(result.status(),503);
+ result=await api.post(`/api/orders/${id}/label-simulation`,{headers,data:{confirmed:true}});assert.equal(result.status(),503);
+ assert.equal((await api.post(`/api/orders/${id}/supplier-paid`,{headers,data:{confirmed:true}})).status(),200);
+ assert.equal((await api.post(`/api/orders/${id}/label-simulation`,{headers,data:{confirmed:true}})).status(),200);
+ const states=await(await api.get('/api/order-states')).json();assert.equal(Number(states.find(o=>o.id===id).label_prepared),1);
+ result=await api.post('/api/drafts',{headers,data:{sku:'MDB-001',title:'Fone Bluetooth de teste',price:15990,quantity:1}});assert.equal(result.status(),200);
+ assert.equal((await(await api.get('/api/drafts')).json()).length,1);
+ assert.equal((await api.post('/api/settings',{headers,data:{mode:'live'}})).status(),409);
+ assert.equal((await api.post('/api/webhooks/mercado-livre',{data:{topic:'orders_v2',resource:'https://evil.example',user_id:1,sent:new Date().toISOString()}})).status(),400);
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+ try{const context=await browser.newContext({storageState:await api.storageState()});const page=await context.newPage({viewport:{width:1440,height:1000}});await page.goto(base);await page.getByRole('heading',{name:'Visão geral da operação.'}).waitFor();await page.getByRole('button',{name:'Abrir pedido 2000010847256'}).click();await page.getByRole('checkbox',{name:'Conferi a modalidade'}).check();await page.getByRole('checkbox',{name:'Aprovo a preparação'}).check();await page.getByRole('button',{name:'Preparar pedido ao fornecedor'}).click();await page.getByRole('button',{name:'Simular confirmação do pagamento'}).waitFor();await page.getByRole('button',{name:'Simular confirmação do pagamento'}).click();await page.getByRole('button',{name:'Simular preparação da etiqueta'}).click();await page.getByRole('button',{name:'Etapa simulada concluída'}).waitFor();await page.reload();await page.getByRole('button',{name:'Abrir pedido 2000010847256'}).click();await page.getByRole('button',{name:'Etapa simulada concluída'}).waitFor();await page.getByRole('button',{name:'Fechar',exact:true}).click();await page.screenshot({path:'/tmp/smartdrop-php-dashboard.png',fullPage:true});await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Abrir menu'}).click();await page.getByRole('button',{name:'Catálogo de produtos'}).click();await page.getByRole('heading',{name:'Catálogo do fornecedor'}).waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);console.log('PASS browser: dashboard, persisted order flow and mobile navigation');}finally{await browser.close();}
+ assert.equal((await api.post('/api/auth/logout',{headers,data:{}})).status(),200);assert.equal((await api.get('/api/audit')).status(),401);
+ console.log('PASS PHP/MySQL: installation, one-time setup, six-digit login, CSRF, private files, concurrency/idempotency, stock, payment, labels, drafts and logout.');
+}finally{await api.dispose();await unlink('php-hostinger/api/setup-key.php');}

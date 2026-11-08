@@ -1,0 +1,3 @@
+<FilesMatch "^(lib|suppliers|setup-key.*|schema)\.">
+Require all denied
+</FilesMatch>

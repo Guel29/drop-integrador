@@ -13,7 +13,8 @@
     "db:seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
     "worker": "NODE_USE_ENV_PROXY=1 tsx --env-file-if-exists=.env src/worker/index.ts",
     "test:integration": "tsx --test tests/*.integration.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "build:php": "node scripts/build-php.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.19.3",
@@ -39,7 +40,9 @@
     "prisma": "^6.19.0",
     "tailwindcss": "^4.1.0",
     "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "esbuild": "^0.28.2",
+    "postcss": "^8.5.32"
   },
   "type": "module",
   "engines": {

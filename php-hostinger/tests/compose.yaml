@@ -1,0 +1,20 @@
+name: smartdrop-php-test
+services:
+  mysql:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: smartdrop
+      MARIADB_USER: smartdrop
+      MARIADB_PASSWORD: local-test-only
+      MARIADB_ROOT_PASSWORD: root-test-only
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  web:
+    image: smartdrop-php-test
+    volumes: ["../:/var/www/html"]
+    ports: ["127.0.0.1:8090:80"]
+    depends_on:
+      mysql: { condition: service_healthy }
