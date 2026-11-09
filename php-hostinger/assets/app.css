@@ -3413,6 +3413,94 @@ details.supplier-download>.button {
     width: 100%;
   }
 }
+.supplier-diagnostic {
+  padding: 18px 22px;
+  margin: 18px 0;
+}
+.supplier-diagnostic summary {
+  font-size: 16px;
+  cursor: pointer;
+  color: #3b6c52;
+}
+.supplier-diagnostic p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #617267;
+  margin: 12px 0;
+}
+.supplier-diagnostic pre {
+  background: #f4f7f1;
+  border: 1px solid #e0e7da;
+  border-radius: 7px;
+  padding: 15px;
+  font: 14px/1.7 monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.supplier-connection {
+  padding: 24px;
+  margin: 24px 0;
+}
+.supplier-connection>summary {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #29684f;
+}
+.supplier-connection>summary svg {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.supplier-connection>p {
+  font-size: 15px;
+  color: #617267;
+  line-height: 1.8;
+  margin: 16px 0;
+}
+.supplier-connection form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin: 20px 0;
+}
+.supplier-connection label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #536e5d;
+  font-size: 15px;
+}
+.supplier-connection input:not([type=checkbox]) {
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #cfddcb;
+  border-radius: 6px;
+  width: 100%;
+  min-width: 0;
+  background: white;
+}
+.supplier-connection label.check-label {
+  flex-direction: row;
+  align-items: flex-start;
+  line-height: 1.7;
+}
+.supplier-connection .notice {
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+.supplier-connection>small {
+  display: block;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #617267;
+  margin-top: 18px;
+}
+@media (max-width:700px) {
+  .supplier-connection {
+    padding: 22px 16px;
+  }
+}
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;
