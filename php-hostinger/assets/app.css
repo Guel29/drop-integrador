@@ -3501,6 +3501,35 @@ details.supplier-download>.button {
     padding: 22px 16px;
   }
 }
+.supplier-advanced {
+  padding: 20px;
+  margin: 25px 0;
+}
+.supplier-advanced>summary {
+  font-size: 16px;
+  color: #496e58;
+  cursor: pointer;
+}
+.supplier-advanced>.button {
+  margin: 15px 5px;
+}
+.supplier-link {
+  border: 2px solid #b5d3bd;
+  background: #fcfefb;
+}
+.supplier-link>h2 {
+  font-size: 21px;
+}
+.heading-actions {
+  flex-wrap: wrap;
+}
+.supplier-link input {
+  min-height: 49px;
+}
+.supplier-link .button {
+  min-height: 49px;
+  font-size: 16px;
+}
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;

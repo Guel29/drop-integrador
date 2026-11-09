@@ -13,7 +13,7 @@ function normalize_supplier_product(array $p): array {
  $availability=$p['availability']??'unknown';if(!in_array($availability,['unknown','in_stock','out_of_stock'],true))throw new InvalidArgumentException('Disponibilidade inválida.');
  if(($stock===0&&$availability==='in_stock')||($stock!==null&&$stock>0&&$availability==='out_of_stock'))throw new InvalidArgumentException('Quantidade e disponibilidade estão em conflito.');
  $gtin=$p['gtin']??'';if(!is_string($gtin)||($gtin!==''&&!preg_match('/^(?:[0-9]{8}|[0-9]{12}|[0-9]{13}|[0-9]{14})$/D',$gtin)))throw new InvalidArgumentException('GTIN inválido; deixe vazio quando não informado.');
- $url=supplier_source_url($p['sourceUrl']??null);$sku=trim($p['sku']);return ['id'=>hash('sha256','meudropbrasil|'.$sku),'sku'=>$sku,'title'=>trim($p['title']),'cost'=>$cost,'stock'=>$stock,'availability'=>$availability,'gtin'=>$gtin,'sourceUrl'=>$url,'source'=>'assisted','importedAt'=>gmdate('c')];
+ $url=supplier_source_url($p['sourceUrl']??null);$sku=trim($p['sku']);return ['id'=>hash('sha256','meudropbrasil|'.$sku),'sku'=>$sku,'title'=>trim($p['title']),'cost'=>$cost,'stock'=>$stock,'availability'=>$availability,'gtin'=>$gtin,'sourceUrl'=>$url,'source'=>'assisted','supplierSku'=>($p['skuOrigin']??'supplier')==='internal'?null:$sku,'skuOrigin'=>($p['skuOrigin']??'supplier')==='internal'?'internal':'supplier','importedAt'=>gmdate('c')];
 }
 function supplier_catalog(): array { $raw=setting('supplier_catalog','[]');$items=json_decode($raw,true,32,JSON_THROW_ON_ERROR);return is_array($items)?array_values($items):[]; }
 function import_supplier_catalog(array $incoming): array {

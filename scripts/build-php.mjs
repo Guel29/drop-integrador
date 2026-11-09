@@ -32,6 +32,9 @@ source=source.replace('<footer className="page-footer">', `{active==='anuncios'&
  <footer className="page-footer">`);
 source=source.replace('Adaptador simulado','Leitura assistida').replace('Prepare pedidos e confira disponibilidade usando o catálogo de desenvolvimento.','Busque os dados públicos pelo link e confirme a importação. Compras reais permanecem bloqueadas.').replace('Catálogo, estoque e preços simulados','Produtos reais com revisão manual').replace('Pedido preparado com aprovação manual','Leitura pelo link direto no site').replace('Integração real aguardando documentação','Sem sincronização contínua ou compras automáticas');
 source=source.replace('<h2>MeuDropBrasil</h2>', '<h2>MeuDropBrasil</h2><a className="button primary" href="/fornecedor">Catálogo real e importar por link</a>');
+source=source.replace("const go = (id: string) => {", "const go = (id: string) => { if(id==='catalogo'){location.href='/fornecedor';return;}");
+source=source.replace('<button className="button primary" onClick={sync}', '<button className="button" onClick={sync}');
+source=source.replace('<div className="heading-actions">','<div className="heading-actions"><a className="button primary" href="/fornecedor#importar"><Plus size={17}/>Importar produto</a>');
 await writeFile('php-hostinger/frontend/Workspace.tsx',source);
 await build({entryPoints:['php-hostinger/frontend/main.tsx'],bundle:true,minify:true,outfile:'php-hostinger/assets/app.js',jsx:'automatic',tsconfig:'tsconfig.json',define:{'process.env.NODE_ENV':'"production"'},target:['es2022']});
 const css=await postcss([tailwindcss()]).process(await readFile('src/app/globals.css','utf8'),{from:'src/app/globals.css'});
