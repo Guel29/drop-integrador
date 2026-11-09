@@ -32,7 +32,7 @@ function supplier_login_form(string $html,string $url): array {
  if(count($matches)!==1)throw new SupplierLinkException('Não identifiquei um único formulário normal de login. O site pode exigir JavaScript ou outro método; nenhuma senha foi enviada.',['reason'=>'login_form_not_recognized','formCount'=>$xp->query('//form')->length,'passwordFieldCount'=>$xp->query('//input[translate(@type,"PASSWORD","password")="password"]')->length,'candidateCount'=>count($matches)]);return $matches[0];
 }
 function supplier_prepare_login(mixed $loginUrl,mixed $productUrl,?callable $transport=null): array {
- $login=supplier_session_url($loginUrl);$product=supplier_link_url($productUrl);$jar=new SupplierCookieState();try{$page=supplier_auth_fetch($login,$jar,null,$transport);$form=supplier_login_form($page['body'],$page['url']);$token=bin2hex(random_bytes(32));$_SESSION['supplier_login_pending']=encrypt_value(['form'=>$form,'cookies'=>$jar->lines,'verificationUrl'=>$product,'expires'=>time()+600,'tokenHash'=>hash('sha256',$token)]);return ['prepared'=>true,'pendingToken'=>$token,'loginUrl'=>supplier_source_url($page['url']),'submitUrl'=>supplier_source_url($form['action']),'expiresIn'=>600,'passwordStored'=>false];}finally{$jar->lines=[];}
+ unset($_SESSION['supplier_price_pending']);$login=supplier_session_url($loginUrl);$product=supplier_link_url($productUrl);$jar=new SupplierCookieState();try{$page=supplier_auth_fetch($login,$jar,null,$transport);$form=supplier_login_form($page['body'],$page['url']);$token=bin2hex(random_bytes(32));$_SESSION['supplier_login_pending']=encrypt_value(['form'=>$form,'cookies'=>$jar->lines,'verificationUrl'=>$product,'expires'=>time()+600,'tokenHash'=>hash('sha256',$token)]);return ['prepared'=>true,'pendingToken'=>$token,'loginUrl'=>supplier_source_url($page['url']),'submitUrl'=>supplier_source_url($form['action']),'expiresIn'=>600,'passwordStored'=>false];}finally{$jar->lines=[];}
 }
 function supplier_login_evidence(string $html,array $expected): bool {
  $old=libxml_use_internal_errors(true);$doc=new DOMDocument();$doc->loadHTML('<?xml encoding="UTF-8">'.$html,LIBXML_NONET|LIBXML_NOERROR|LIBXML_NOWARNING);libxml_clear_errors();libxml_use_internal_errors($old);$xp=new DOMXPath($doc);$logout=false;
@@ -49,11 +49,28 @@ function supplier_finish_login(array $data,?callable $transport=null): array {
  $jar=new SupplierCookieState($p['cookies']);$transport??='supplier_link_transport';$deadline=microtime(true)+22;
  try{$fields=$p['form']['fields'];$fields[$p['form']['usernameField']]=$username;$fields[$p['form']['passwordField']]=$password;$loginResponse=supplier_auth_fetch($p['form']['action'],$jar,$fields,$transport,$deadline);unset($fields,$password,$data['password']);
  if(!supplier_login_evidence($loginResponse['body'],$p['form']))throw new SupplierLinkException('O fornecedor não confirmou um login concluído no HTML. Confira o acesso ou uma eventual etapa adicional; nenhuma conexão foi marcada como validada.');
- $readTransport=function($url,$timeout)use($transport,$jar,$deadline){$remaining=(int)floor($deadline-microtime(true));if($remaining<1)throw new SupplierLinkException('O teste da sessão excedeu o tempo permitido.');return $transport($url,min(8,$timeout,$remaining),null,$jar);};
- $result=supplier_read_link($p['verificationUrl'],$readTransport);if(($result['partial']??false)||!array_filter($result['products'],fn($item)=>$item['cost']!==null))throw new SupplierLinkException('A sessão não foi validada: o preço continuou ausente. Confira o acesso ou uma eventual etapa adicional do fornecedor.');
- $cookies=$jar->lines;if(!$cookies)throw new SupplierLinkException('O fornecedor não criou uma sessão reutilizável. Nenhuma conexão foi marcada como validada.');
- set_setting('supplier_session',encrypt_value(['cookies'=>$cookies,'verifiedAt'=>gmdate('c'),'expires'=>time()+2592000,'verificationUrl'=>$p['verificationUrl']]));audit('supplier.session.verified',null,'price-read');return ['connected'=>true,'priceAccessVerified'=>true,'passwordStored'=>false,'verification'=>$result];
+ if(!$jar->lines)throw new SupplierLinkException('O fornecedor não criou uma sessão reutilizável. Nenhuma conexão foi marcada como validada.');
+ $_SESSION['supplier_price_pending']=encrypt_value(['cookies'=>$jar->lines,'expires'=>time()+600]);
+ return supplier_verify_pending_price($p['verificationUrl'],$transport);
+
  }catch(SupplierLinkException $e){throw $e;}catch(Throwable){throw new SupplierLinkException('Não foi possível validar o login do fornecedor. Nenhuma conexão foi confirmada.');}finally{$jar->lines=[];}
+}
+/** Temporary cookies are scoped to this administrator session; never used for imports until price verification. */
+function supplier_verify_pending_price(mixed $url,?callable $transport=null): array {
+ $url=supplier_link_url($url);$pending=$_SESSION['supplier_price_pending']??null;
+ if(!$pending)throw new SupplierLinkException('Entre novamente antes de testar o preço.');
+ $p=decrypt_value($pending);if($p['expires']<time()){unset($_SESSION['supplier_price_pending']);throw new SupplierLinkException('O teste expirou. Entre novamente.');}
+ $jar=new SupplierCookieState($p['cookies']);$transport??='supplier_link_transport';
+ try{
+  $result=supplier_read_link($url,fn($target,$timeout)=>$transport($target,$timeout,null,$jar));
+  if(($result['partial']??false)||!array_filter($result['products'],fn($item)=>$item['cost']!==null))throw new SupplierLinkException('O preço continuou ausente. Teste outro link de produto.',['reason'=>'price_missing']);
+  if(!$jar->lines)throw new SupplierLinkException('A sessão não pode ser reutilizada.');
+  set_setting('supplier_session',encrypt_value(['cookies'=>$jar->lines,'verifiedAt'=>gmdate('c'),'expires'=>time()+2592000,'verificationUrl'=>$url]));unset($_SESSION['supplier_price_pending']);audit('supplier.session.verified',null,'price-read');
+  return ['connected'=>true,'priceAccessVerified'=>true,'passwordStored'=>false,'verification'=>$result];
+ }catch(SupplierLinkException $e){
+  $_SESSION['supplier_price_pending']=encrypt_value(['cookies'=>$jar->lines,'expires'=>$p['expires']]);
+  throw new SupplierLinkException('O formulário retornou sinais de login, mas não foi possível validar o preço do produto. A conexão ainda não está validada. Teste outro link abaixo.',array_merge($e->diagnostic,['stage'=>'price_verification','retryPrice'=>true]));
+ }finally{$jar->lines=[];}
 }
 function supplier_session_status(): array { $value=setting('supplier_session');if(!$value)return ['connected'=>false,'passwordStored'=>false];try{$s=decrypt_value($value);return ['connected'=>$s['expires']>time(),'verifiedAt'=>$s['verifiedAt'],'expiresAt'=>gmdate('c',$s['expires']),'passwordStored'=>false];}catch(Throwable){return ['connected'=>false,'passwordStored'=>false,'requiresReconnect'=>true];} }
 function supplier_read_authenticated(mixed $url,?callable $transport=null): array {
